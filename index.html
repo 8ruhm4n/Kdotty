@@ -31,8 +31,69 @@
     position: relative;
     max-width: 1100px;
     margin: 0 auto;
-    padding: calc(env(safe-area-inset-top, 0px) + 28px) 24px 60px;
+    padding: calc(env(safe-area-inset-top, 0px) + 28px) 24px calc(env(safe-area-inset-bottom, 0px) + 100px);
     overflow-x: hidden;
+  }
+
+  /* ===== Page system ===== */
+  .page { display: none; }
+  .page.is-active {
+    display: block;
+    animation: page-fade 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @keyframes page-fade {
+    0%   { opacity: 0; transform: translateY(6px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== Bottom nav ===== */
+  .bottom-nav {
+    position: fixed;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 18px);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 4px;
+    padding: 6px;
+    background: rgba(18, 18, 20, 0.72);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 999px;
+    backdrop-filter: blur(24px) saturate(1.5);
+    -webkit-backdrop-filter: blur(24px) saturate(1.5);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
+    z-index: 100;
+  }
+
+  .nav-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 16px;
+    background: transparent;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    color: var(--text-tertiary);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    font-family: inherit;
+    transition: background 0.25s ease, color 0.25s ease, transform 0.18s ease;
+  }
+
+  .nav-tab:hover { color: var(--text-secondary); }
+  .nav-tab:active { transform: scale(0.96); }
+
+  .nav-tab.is-active {
+    background: rgba(255,255,255,0.08);
+    color: var(--text-primary);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+  }
+
+  .nav-tab-icon {
+    font-size: 14px;
+    line-height: 1;
   }
 
   body::before {
@@ -983,7 +1044,9 @@
 
   /* ===== Responsive ===== */
   @media (max-width: 480px) {
-    body { padding: calc(env(safe-area-inset-top, 0px) + 18px) 16px 40px; }
+    body { padding: calc(env(safe-area-inset-top, 0px) + 18px) 16px calc(env(safe-area-inset-bottom, 0px) + 96px); }
+    .bottom-nav { bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); }
+    .nav-tab { padding: 8px 14px; font-size: 11.5px; }
     .dash-title { font-size: 22px; }
     .goal-ticker { padding: 9px 12px; }
     .goal-ticker-label { font-size: 9px; letter-spacing: 0.14em; }
@@ -998,6 +1061,8 @@
 </style>
 </head>
 <body>
+
+  <main id="page-home" class="page is-active">
 
   <h1 class="dash-title">Kian's Dashboard</h1>
 
@@ -1104,9 +1169,15 @@
     </div>
   </div>
 
+  </main>
+
+  <main id="page-supplements" class="page">
+
+  <h1 class="dash-title">Supplements</h1>
+
   <!-- ===== Component 5: Supplements ===== -->
   <div class="section">
-    <div class="section-title">Supplements</div>
+    <div class="section-title">Stack</div>
     <div class="gm-card" id="supplementsCard">
 
       <div class="supp-bucket" data-bucket="morning">
@@ -1166,6 +1237,19 @@
       </div>
     </div>
   </div>
+
+  </main>
+
+  <nav class="bottom-nav" role="tablist" aria-label="Sections">
+    <button class="nav-tab is-active" data-page="home" type="button" role="tab" aria-selected="true">
+      <span class="nav-tab-icon">⌂</span>
+      <span class="nav-tab-label">Dashboard</span>
+    </button>
+    <button class="nav-tab" data-page="supplements" type="button" role="tab" aria-selected="false">
+      <span class="nav-tab-icon">💊</span>
+      <span class="nav-tab-label">Supplements</span>
+    </button>
+  </nav>
 
 <script>
 (function () {
@@ -2059,6 +2143,37 @@
   wireSupplementAdd();
   renderSupplements();
   setInterval(renderSupplements, 5 * 60 * 1000);
+
+  // ---------------- Tab navigation ----------------
+  (function setupTabs() {
+    const tabs = document.querySelectorAll('.nav-tab');
+    const pages = document.querySelectorAll('.page');
+
+    function activate(name) {
+      let matched = false;
+      pages.forEach(function (p) {
+        const on = p.id === 'page-' + name;
+        if (on) matched = true;
+        p.classList.toggle('is-active', on);
+      });
+      if (!matched) return;
+      tabs.forEach(function (t) {
+        const on = t.dataset.page === name;
+        t.classList.toggle('is-active', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      try { localStorage.setItem('active_page_v1', name); } catch (e) {}
+      window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+    }
+
+    tabs.forEach(function (t) {
+      t.addEventListener('click', function () { activate(t.dataset.page); });
+    });
+
+    let saved = null;
+    try { saved = localStorage.getItem('active_page_v1'); } catch (e) {}
+    if (saved) activate(saved);
+  })();
 })();
 </script>
 </body>
