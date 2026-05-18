@@ -2229,7 +2229,7 @@
     <div class="day-ring-right">
       <div class="day-ring-status" id="dayRingStatus">😴 Still sleeping</div>
       <div class="day-ring-remaining" id="dayRingRemaining">— until wake-up</div>
-      <div class="day-ring-hours">8:00 AM – 12:00 AM</div>
+      <div class="day-ring-hours">6:00 AM – 10:00 PM</div>
     </div>
   </div>
 
@@ -3518,8 +3518,8 @@
   }
 
   // ---------------- Day Ring ----------------
-  const WAKE_HOUR = 8;
-  const SLEEP_HOUR = 24;
+  const WAKE_HOUR = 6;
+  const SLEEP_HOUR = 22;
   const RING_R = 52;
   const RING_C = 2 * Math.PI * RING_R;
 
@@ -4525,7 +4525,7 @@
       tile.appendChild(img);
       const date = document.createElement('div');
       date.className = 'photo-date';
-      date.textContent = p.dateLabel;
+      date.textContent = p.dateLabel + (p.weight ? '  ·  ' + p.weight + ' lbs' : '');
       tile.appendChild(date);
       const del = document.createElement('button');
       del.className = 'photo-delete';
@@ -4580,11 +4580,19 @@
         const dataUrl = await compressImage(file);
         const now = new Date();
         const photos = getPhotos();
+        // Snapshot the most recent body weight at the time of the photo
+        const bodyEntriesSorted = getBodyEntries().slice().sort(function (a, b) {
+          return a.date < b.date ? -1 : 1;
+        });
+        const latestWeight = bodyEntriesSorted.length
+          ? bodyEntriesSorted[bodyEntriesSorted.length - 1].weight
+          : null;
         photos.push({
           id: 'p_' + Math.random().toString(36).slice(2, 9) + Date.now().toString(36),
           dataUrl: dataUrl,
           ts: now.getTime(),
-          dateLabel: formatDate(toYMD(now))
+          dateLabel: formatDate(toYMD(now)),
+          weight: latestWeight
         });
         const ok = setPhotos(photos);
         if (!ok) throw new Error('Storage full');
