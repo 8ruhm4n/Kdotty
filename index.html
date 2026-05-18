@@ -824,6 +824,163 @@
     letter-spacing: 0.06em;
   }
 
+  /* ===== Supplements ===== */
+  .supp-bucket {
+    margin-bottom: 14px;
+  }
+  .supp-bucket:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .supp-bucket-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0 8px;
+    margin-bottom: 6px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .supp-bucket-icon {
+    font-size: 14px;
+    line-height: 1;
+    transition: filter 0.4s ease;
+  }
+
+  .supp-bucket-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    transition: color 0.4s ease;
+  }
+
+  .supp-bucket-now {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 9.5px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    color: var(--warning);
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: rgba(242,192,99,0.10);
+    border: 1px solid rgba(242,192,99,0.28);
+    display: none;
+  }
+
+  .supp-bucket.is-current .supp-bucket-now { display: inline-flex; }
+  .supp-bucket.is-current .supp-bucket-label { color: var(--warning); }
+  .supp-bucket.is-current .supp-bucket-icon {
+    filter: drop-shadow(0 0 6px rgba(242,192,99,0.55));
+  }
+
+  .supp-bucket-count {
+    margin-left: auto;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-secondary);
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.04);
+  }
+
+  .supp-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .supp-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    margin-bottom: 4px;
+    background: rgba(255,255,255,0.035);
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: background 0.2s ease, opacity 0.3s ease;
+  }
+
+  .supp-row:hover {
+    background: rgba(255,255,255,0.055);
+  }
+
+  .supp-row:hover .goal-delete { opacity: 1; }
+
+  .supp-row.is-taken {
+    opacity: 0.45;
+    background: rgba(107,227,164,0.04);
+  }
+
+  .supp-row.is-taken .supp-name {
+    text-decoration: line-through;
+    text-decoration-color: rgba(255,255,255,0.4);
+  }
+
+  .supp-name {
+    flex: 1;
+    font-size: 14px;
+    color: var(--text-primary);
+    word-break: break-word;
+    line-height: 1.4;
+  }
+
+  .supp-dose {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11.5px;
+    color: var(--text-tertiary);
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.04);
+  }
+
+  .supp-bucket-empty {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    font-style: italic;
+    padding: 8px 0 4px;
+  }
+
+  .supp-add-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .supp-name-input { flex: 1; min-width: 160px; }
+  .supp-dose-input { flex: 0 1 120px; min-width: 100px; }
+
+  .supp-select {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-size: 14px;
+    padding: 11px 12px;
+    font-family: inherit;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .supp-select:focus {
+    border-color: rgba(255,255,255,0.32);
+    background: rgba(255,255,255,0.06);
+  }
+
+  .supp-select option {
+    background: #0A0A0B;
+    color: var(--text-primary);
+  }
+
   /* ===== Responsive ===== */
   @media (max-width: 480px) {
     body { padding: calc(env(safe-area-inset-top, 0px) + 18px) 16px 40px; }
@@ -836,6 +993,7 @@
     .day-ring-pct { font-size: 32px; }
     .day-ring-status { font-size: 13px; }
     .gm-progress-num { font-size: 36px; }
+    .supp-name-input, .supp-dose-input, .supp-select { flex: 1 1 100%; }
   }
 </style>
 </head>
@@ -942,6 +1100,69 @@
         <button id="tomorrowAddBtn" class="goal-add-btn">+ Add</button>
         <button id="tomorrowPolishBtn" class="goal-polish-btn">✨ Polish</button>
         <div id="tomorrowStatus" class="gm-status"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Component 5: Supplements ===== -->
+  <div class="section">
+    <div class="section-title">Supplements</div>
+    <div class="gm-card" id="supplementsCard">
+
+      <div class="supp-bucket" data-bucket="morning">
+        <div class="supp-bucket-header">
+          <span class="supp-bucket-icon">☀️</span>
+          <span class="supp-bucket-label">Morning</span>
+          <span class="supp-bucket-now">NOW</span>
+          <span class="supp-bucket-count">0/0</span>
+        </div>
+        <ul class="supp-list"></ul>
+        <div class="supp-bucket-empty">Nothing scheduled for the morning yet.</div>
+      </div>
+
+      <div class="supp-bucket" data-bucket="afternoon">
+        <div class="supp-bucket-header">
+          <span class="supp-bucket-icon">🔥</span>
+          <span class="supp-bucket-label">Afternoon</span>
+          <span class="supp-bucket-now">NOW</span>
+          <span class="supp-bucket-count">0/0</span>
+        </div>
+        <ul class="supp-list"></ul>
+        <div class="supp-bucket-empty">Nothing scheduled for the afternoon yet.</div>
+      </div>
+
+      <div class="supp-bucket" data-bucket="evening">
+        <div class="supp-bucket-header">
+          <span class="supp-bucket-icon">🌅</span>
+          <span class="supp-bucket-label">Evening</span>
+          <span class="supp-bucket-now">NOW</span>
+          <span class="supp-bucket-count">0/0</span>
+        </div>
+        <ul class="supp-list"></ul>
+        <div class="supp-bucket-empty">Nothing scheduled for the evening yet.</div>
+      </div>
+
+      <div class="supp-bucket" data-bucket="night">
+        <div class="supp-bucket-header">
+          <span class="supp-bucket-icon">🌙</span>
+          <span class="supp-bucket-label">Night</span>
+          <span class="supp-bucket-now">NOW</span>
+          <span class="supp-bucket-count">0/0</span>
+        </div>
+        <ul class="supp-list"></ul>
+        <div class="supp-bucket-empty">Nothing scheduled for the night yet.</div>
+      </div>
+
+      <div class="supp-add-row">
+        <input id="suppNameInput" class="goal-input supp-name-input" type="text" placeholder="Supplement name…" />
+        <input id="suppDoseInput" class="goal-input supp-dose-input" type="text" placeholder="Dose (optional)" />
+        <select id="suppBucketSelect" class="supp-select" title="When to take it">
+          <option value="morning">☀️ Morning</option>
+          <option value="afternoon">🔥 Afternoon</option>
+          <option value="evening">🌅 Evening</option>
+          <option value="night">🌙 Night</option>
+        </select>
+        <button id="suppAddBtn" class="goal-add-btn">+ Add</button>
       </div>
     </div>
   </div>
@@ -1663,6 +1884,150 @@
     return { start: start, tick: tick };
   })();
 
+  // ---------------- Supplements ----------------
+  const SUPP_BUCKETS = [
+    { id: 'morning',   label: 'Morning'   },
+    { id: 'afternoon', label: 'Afternoon' },
+    { id: 'evening',   label: 'Evening'   },
+    { id: 'night',     label: 'Night'     }
+  ];
+
+  function getCurrentBucket() {
+    const h = new Date().getHours();
+    if (h >= 5 && h < 11) return 'morning';
+    if (h >= 11 && h < 17) return 'afternoon';
+    if (h >= 17 && h < 22) return 'evening';
+    return 'night';
+  }
+
+  function uid() {
+    return 's_' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+  }
+
+  function getSupplements() { return storeGet('supplements_v1') || []; }
+  function setSupplements(arr) { storeSet('supplements_v1', arr); }
+
+  function getSuppTakenKey() { return 'supplements_taken:' + getActiveDateString(); }
+  function getSuppTaken() { return storeGet(getSuppTakenKey()) || []; }
+  function setSuppTaken(arr) { storeSet(getSuppTakenKey(), arr); }
+
+  function buildSuppRow(s, isTaken) {
+    const li = document.createElement('li');
+    li.className = 'supp-row' + (isTaken ? ' is-taken' : '');
+
+    const cbWrap = document.createElement('span');
+    cbWrap.className = 'gm-check-wrap';
+    const cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.className = 'gm-check';
+    cb.checked = isTaken;
+    cbWrap.appendChild(cb);
+    const cbBox = document.createElement('span');
+    cbBox.className = 'gm-check-box';
+    cbWrap.appendChild(cbBox);
+    li.appendChild(cbWrap);
+
+    const name = document.createElement('span');
+    name.className = 'supp-name';
+    name.textContent = s.name;
+    li.appendChild(name);
+
+    if (s.dose) {
+      const dose = document.createElement('span');
+      dose.className = 'supp-dose';
+      dose.textContent = s.dose;
+      li.appendChild(dose);
+    }
+
+    const del = document.createElement('button');
+    del.className = 'goal-delete';
+    del.textContent = '×';
+    del.title = 'Remove this supplement';
+    li.appendChild(del);
+
+    cb.addEventListener('change', function () {
+      const taken = getSuppTaken();
+      const idx = taken.indexOf(s.id);
+      if (cb.checked && idx === -1) taken.push(s.id);
+      else if (!cb.checked && idx !== -1) taken.splice(idx, 1);
+      setSuppTaken(taken);
+      renderSupplements();
+    });
+
+    del.addEventListener('click', function () {
+      if (!confirm('Remove "' + s.name + '" from your supplements?')) return;
+      const supps = getSupplements().filter(function (x) { return x.id !== s.id; });
+      setSupplements(supps);
+      const taken = getSuppTaken().filter(function (id) { return id !== s.id; });
+      setSuppTaken(taken);
+      renderSupplements();
+    });
+
+    return li;
+  }
+
+  function renderSupplements() {
+    const supps = getSupplements();
+    const taken = getSuppTaken();
+    const currentBucket = getCurrentBucket();
+
+    SUPP_BUCKETS.forEach(function (b) {
+      const bucketEl = document.querySelector('.supp-bucket[data-bucket="' + b.id + '"]');
+      if (!bucketEl) return;
+      const listEl = bucketEl.querySelector('.supp-list');
+      const emptyEl = bucketEl.querySelector('.supp-bucket-empty');
+      const countEl = bucketEl.querySelector('.supp-bucket-count');
+
+      bucketEl.classList.toggle('is-current', b.id === currentBucket);
+
+      const inBucket = supps.filter(function (s) { return s.bucket === b.id; });
+      const takenInBucket = inBucket.filter(function (s) {
+        return taken.indexOf(s.id) !== -1;
+      }).length;
+      countEl.textContent = takenInBucket + '/' + inBucket.length;
+
+      listEl.innerHTML = '';
+      if (inBucket.length === 0) {
+        emptyEl.style.display = '';
+      } else {
+        emptyEl.style.display = 'none';
+        inBucket.forEach(function (s) {
+          listEl.appendChild(buildSuppRow(s, taken.indexOf(s.id) !== -1));
+        });
+      }
+    });
+  }
+
+  function wireSupplementAdd() {
+    const nameInput = document.getElementById('suppNameInput');
+    const doseInput = document.getElementById('suppDoseInput');
+    const bucketSel = document.getElementById('suppBucketSelect');
+    const addBtn = document.getElementById('suppAddBtn');
+
+    bucketSel.value = getCurrentBucket();
+
+    function add() {
+      const name = (nameInput.value || '').trim();
+      if (!name) { nameInput.focus(); return; }
+      const dose = (doseInput.value || '').trim();
+      const bucket = bucketSel.value;
+      const supps = getSupplements();
+      supps.push({ id: uid(), name: name, dose: dose, bucket: bucket });
+      setSupplements(supps);
+      nameInput.value = '';
+      doseInput.value = '';
+      nameInput.focus();
+      renderSupplements();
+    }
+
+    addBtn.addEventListener('click', add);
+    [nameInput, doseInput].forEach(function (inp) {
+      inp.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') { e.preventDefault(); add(); }
+      });
+    });
+  }
+
   // ---------------- Boot ----------------
   runRollover();
   runStreakCheck();
@@ -1690,6 +2055,10 @@
   updateDayBar();
   setInterval(updateDayBar, 60 * 1000);
   ticker.start();
+
+  wireSupplementAdd();
+  renderSupplements();
+  setInterval(renderSupplements, 5 * 60 * 1000);
 })();
 </script>
 </body>
