@@ -1682,6 +1682,86 @@
     line-height: 1;
   }
 
+  /* ===== Home summary cards ===== */
+  .home-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+  }
+
+  .summary-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 16px;
+    cursor: pointer;
+    transition: background 0.22s ease, transform 0.18s ease, border-color 0.22s ease;
+    text-align: left;
+    font-family: inherit;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+  }
+
+  .summary-card:hover {
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(255,255,255,0.14);
+    transform: translateY(-1px);
+  }
+  .summary-card:active { transform: translateY(0); }
+
+  .summary-card-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .summary-card-icon {
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  .summary-card-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+
+  .summary-card-arrow {
+    margin-left: auto;
+    color: var(--text-tertiary);
+    font-size: 14px;
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+  .summary-card:hover .summary-card-arrow {
+    color: var(--text-secondary);
+    transform: translateX(3px);
+  }
+
+  .summary-card-value {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.1;
+  }
+
+  .summary-card-value.is-accent { color: var(--success); }
+  .summary-card-value.is-warning { color: var(--warning); }
+
+  .summary-card-sub {
+    font-size: 11.5px;
+    color: var(--text-tertiary);
+    line-height: 1.4;
+  }
+
   /* ===== Habits ===== */
   .habit-list {
     list-style: none;
@@ -1882,22 +1962,7 @@
 
   <h1 class="dash-title">Kian's Dashboard</h1>
 
-  <!-- ===== Component 2: Goal Ticker ===== -->
-  <div class="ticker-row">
-    <div class="goal-ticker" id="goalTicker" aria-live="polite" aria-atomic="true">
-      <div class="goal-ticker-led"><span class="goal-ticker-led-dot"></span></div>
-      <div class="goal-ticker-label">GOALS</div>
-      <div class="goal-ticker-stage" id="goalTickerStage">
-        <div class="goal-ticker-row">
-          <span class="goal-ticker-status" data-status="">—</span>
-          <span class="goal-ticker-text">Loading…</span>
-        </div>
-      </div>
-      <div class="goal-ticker-meta" id="goalTickerMeta">0/0</div>
-    </div>
-  </div>
-
-  <!-- ===== Component 3: Day Ring ===== -->
+  <!-- ===== Day Ring (only home-specific widget) ===== -->
   <div class="day-ring-wrap">
     <div class="day-ring-svg-wrap">
       <svg viewBox="0 0 120 120" aria-hidden="true">
@@ -1926,7 +1991,74 @@
     </div>
   </div>
 
-  <!-- ===== Component 4: To Do List ===== -->
+  <!-- ===== Today at a glance ===== -->
+  <div class="section">
+    <div class="section-title">Today at a glance</div>
+    <div class="home-summary" id="homeSummary">
+      <button class="summary-card" type="button" data-tab="goals">
+        <div class="summary-card-head">
+          <span class="summary-card-icon">✓</span>
+          <span class="summary-card-label">Goals</span>
+          <span class="summary-card-arrow">→</span>
+        </div>
+        <div class="summary-card-value" id="homeGoalsValue">0/0</div>
+        <div class="summary-card-sub" id="homeGoalsSub">no goals yet</div>
+      </button>
+
+      <button class="summary-card" type="button" data-tab="habits">
+        <div class="summary-card-head">
+          <span class="summary-card-icon">🎯</span>
+          <span class="summary-card-label">Habits</span>
+          <span class="summary-card-arrow">→</span>
+        </div>
+        <div class="summary-card-value" id="homeHabitsValue">0/0</div>
+        <div class="summary-card-sub" id="homeHabitsSub">no habits yet</div>
+      </button>
+
+      <button class="summary-card" type="button" data-tab="supplements">
+        <div class="summary-card-head">
+          <span class="summary-card-icon">💊</span>
+          <span class="summary-card-label">Supplements</span>
+          <span class="summary-card-arrow">→</span>
+        </div>
+        <div class="summary-card-value" id="homeSuppsValue">0/0</div>
+        <div class="summary-card-sub" id="homeSuppsSub">none scheduled</div>
+      </button>
+
+      <button class="summary-card" type="button" data-tab="gym">
+        <div class="summary-card-head">
+          <span class="summary-card-icon">💪</span>
+          <span class="summary-card-label">Gym</span>
+          <span class="summary-card-arrow">→</span>
+        </div>
+        <div class="summary-card-value" id="homeGymValue">0</div>
+        <div class="summary-card-sub" id="homeGymSub">volume this week</div>
+      </button>
+    </div>
+  </div>
+
+  </main>
+
+  <main id="page-goals" class="page">
+
+  <h1 class="dash-title">Goals</h1>
+
+  <!-- Goal Ticker -->
+  <div class="ticker-row">
+    <div class="goal-ticker" id="goalTicker" aria-live="polite" aria-atomic="true">
+      <div class="goal-ticker-led"><span class="goal-ticker-led-dot"></span></div>
+      <div class="goal-ticker-label">GOALS</div>
+      <div class="goal-ticker-stage" id="goalTickerStage">
+        <div class="goal-ticker-row">
+          <span class="goal-ticker-status" data-status="">—</span>
+          <span class="goal-ticker-text">Loading…</span>
+        </div>
+      </div>
+      <div class="goal-ticker-meta" id="goalTickerMeta">0/0</div>
+    </div>
+  </div>
+
+  <!-- To Do List -->
   <div class="section">
     <div class="section-title">To Do List</div>
 
@@ -2394,6 +2526,10 @@
     <button class="nav-tab is-active" data-page="home" type="button" role="tab" aria-selected="true">
       <span class="nav-tab-icon">⌂</span>
       <span class="nav-tab-label">Dashboard</span>
+    </button>
+    <button class="nav-tab" data-page="goals" type="button" role="tab" aria-selected="false">
+      <span class="nav-tab-icon">✓</span>
+      <span class="nav-tab-label">Goals</span>
     </button>
     <button class="nav-tab" data-page="supplements" type="button" role="tab" aria-selected="false">
       <span class="nav-tab-icon">💊</span>
@@ -4274,6 +4410,117 @@
   wireHabits();
   renderHabits();
 
+  // ---------------- Home summary ----------------
+  function renderHomeSummary() {
+    if (!document.getElementById('homeGoalsValue')) return;
+
+    // Goals
+    const today = getActiveDateString();
+    const goalsList = storeGet('goals:' + today) || [];
+    const goalsDone = goalsList.filter(function (g) { return g.done; }).length;
+    const gv = document.getElementById('homeGoalsValue');
+    const gs = document.getElementById('homeGoalsSub');
+    gv.textContent = goalsDone + '/' + goalsList.length;
+    gv.classList.toggle('is-accent', goalsList.length > 0 && goalsDone === goalsList.length);
+    if (goalsList.length === 0) {
+      gs.textContent = 'no goals yet';
+    } else if (goalsDone === goalsList.length) {
+      gs.textContent = 'all done — solid day';
+    } else {
+      const remaining = goalsList.length - goalsDone;
+      gs.textContent = remaining + ' remaining today';
+    }
+
+    // Habits
+    const habits = getHabits();
+    const habitsDoneToday = getHabitsDoneFor(today);
+    const habitsDone = habits.filter(function (h) {
+      return habitsDoneToday.indexOf(h.id) !== -1;
+    }).length;
+    let longestStreak = 0;
+    habits.forEach(function (h) {
+      const s = getHabitStreak(h.id);
+      if (s > longestStreak) longestStreak = s;
+    });
+    const hv = document.getElementById('homeHabitsValue');
+    const hs = document.getElementById('homeHabitsSub');
+    hv.textContent = habitsDone + '/' + habits.length;
+    hv.classList.toggle('is-accent', habits.length > 0 && habitsDone === habits.length);
+    if (habits.length === 0) {
+      hs.textContent = 'no habits yet';
+    } else if (longestStreak > 0) {
+      hs.textContent = '🔥 ' + longestStreak + '-day best streak';
+    } else if (habitsDone === habits.length) {
+      hs.textContent = 'all done today';
+    } else {
+      hs.textContent = (habits.length - habitsDone) + ' remaining today';
+    }
+
+    // Supplements
+    const supps = getSupplements();
+    const takenIds = getSuppTaken();
+    const suppsTaken = supps.filter(function (s) {
+      return takenIds.indexOf(s.id) !== -1;
+    }).length;
+    const sv = document.getElementById('homeSuppsValue');
+    const ss = document.getElementById('homeSuppsSub');
+    sv.textContent = suppsTaken + '/' + supps.length;
+    sv.classList.toggle('is-accent', supps.length > 0 && suppsTaken === supps.length);
+    if (supps.length === 0) {
+      ss.textContent = 'none scheduled';
+    } else {
+      const currentBucketId = getCurrentBucket();
+      const bucketMeta = SUPP_BUCKETS.find(function (b) { return b.id === currentBucketId; });
+      const inCurrent = supps.filter(function (s) { return s.bucket === currentBucketId; });
+      const takenInCurrent = inCurrent.filter(function (s) {
+        return takenIds.indexOf(s.id) !== -1;
+      }).length;
+      if (inCurrent.length > 0) {
+        ss.textContent = (bucketMeta ? bucketMeta.label : 'Now') +
+          ' · ' + takenInCurrent + '/' + inCurrent.length + ' taken';
+      } else if (suppsTaken === supps.length) {
+        ss.textContent = 'all taken today';
+      } else {
+        ss.textContent = suppsTaken + ' taken today';
+      }
+    }
+
+    // Gym
+    const weekDates = getWeekDates();
+    let totalVolume = 0;
+    const sessions = {};
+    weekDates.forEach(function (ymd) {
+      const log = getGymLog(ymd);
+      if (log.length) sessions[ymd] = true;
+      log.forEach(function (l) {
+        totalVolume += (l.weight || 0) * (l.sets || 0) * (l.reps || 0);
+      });
+    });
+    const sessionCount = Object.keys(sessions).length;
+    const gymVal = document.getElementById('homeGymValue');
+    const gymSub = document.getElementById('homeGymSub');
+    gymVal.textContent = totalVolume > 0 ? formatShortNum(totalVolume) : '0';
+    if (sessionCount === 0) {
+      gymSub.textContent = 'no sessions this week';
+    } else {
+      gymSub.textContent = 'volume · ' + sessionCount +
+        (sessionCount === 1 ? ' session' : ' sessions') + ' this week';
+    }
+  }
+
+  // Wire summary card clicks to navigate to their tabs
+  document.querySelectorAll('.summary-card').forEach(function (card) {
+    card.addEventListener('click', function () {
+      const tabName = card.dataset.tab;
+      const tab = document.querySelector('.nav-tab[data-page="' + tabName + '"]');
+      if (tab) tab.click();
+    });
+  });
+
+  renderHomeSummary();
+  setInterval(renderHomeSummary, 60 * 1000);
+  window.addEventListener('goals-changed', renderHomeSummary);
+
   // ---------------- Tab navigation ----------------
   (function setupTabs() {
     const tabs = document.querySelectorAll('.nav-tab');
@@ -4303,6 +4550,10 @@
         } catch (e) {
           activeTab.scrollIntoView();
         }
+      }
+      // Refresh home summary whenever we land on home, so cross-tab data is fresh.
+      if (name === 'home' && typeof renderHomeSummary === 'function') {
+        renderHomeSummary();
       }
     }
 
