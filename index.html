@@ -1930,6 +1930,244 @@
 
   .habit-name-input { flex: 1; min-width: 140px; }
 
+  /* ===== Body + Sleep shared form ===== */
+  .metric-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .metric-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .metric-field-label {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+
+  .metric-field-input {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 12px;
+    outline: none;
+    transition: border-color 0.2s ease, background 0.2s ease;
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+  .metric-field-input::-webkit-outer-spin-button,
+  .metric-field-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+  }
+  .metric-field-input:focus {
+    border-color: rgba(255,255,255,0.28);
+    background: rgba(255,255,255,0.06);
+  }
+
+  .metric-save-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .metric-status {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    min-height: 14px;
+  }
+  .metric-status.is-error { color: var(--danger); }
+  .metric-status.is-success { color: var(--success); }
+
+  /* History list (shared by body + sleep) */
+  .metric-history {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .metric-history-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    margin-bottom: 4px;
+    background: rgba(255,255,255,0.035);
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: background 0.2s ease;
+    flex-wrap: wrap;
+  }
+  .metric-history-row:hover { background: rgba(255,255,255,0.05); }
+  .metric-history-row:hover .metric-history-delete { opacity: 1; }
+
+  .metric-history-date {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    width: 88px;
+    flex-shrink: 0;
+  }
+
+  .metric-history-main {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    flex-shrink: 0;
+  }
+
+  .metric-history-extras {
+    flex: 1;
+    font-size: 11.5px;
+    color: var(--text-tertiary);
+    min-width: 120px;
+  }
+
+  .metric-history-delete {
+    background: none;
+    border: none;
+    color: var(--text-tertiary);
+    font-size: 18px;
+    cursor: pointer;
+    opacity: 0.4;
+    padding: 0 4px;
+    line-height: 1;
+    transition: color 0.2s ease, opacity 0.2s ease;
+  }
+  .metric-history-delete:hover { color: var(--danger); opacity: 1; }
+
+  .metric-empty {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    font-style: italic;
+    padding: 14px 0;
+    text-align: center;
+  }
+
+  /* ===== Star rating (sleep quality) ===== */
+  .star-rating {
+    display: inline-flex;
+    gap: 4px;
+    align-items: center;
+  }
+  .star-rating-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 22px;
+    line-height: 1;
+    color: rgba(255,255,255,0.18);
+    padding: 2px;
+    transition: color 0.18s ease, transform 0.18s ease;
+  }
+  .star-rating-btn:hover { transform: scale(1.12); }
+  .star-rating-btn.is-on { color: #F2C063; filter: drop-shadow(0 0 4px rgba(242,192,99,0.5)); }
+  .star-rating-readonly {
+    color: #F2C063;
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+  .star-rating-readonly .is-off { color: rgba(255,255,255,0.18); filter: none; }
+
+  /* ===== Sleep weekly bars ===== */
+  .sleep-bars {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 6px;
+    height: 160px;
+    padding: 12px 0 0;
+  }
+
+  .sleep-bar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    height: 100%;
+    justify-content: flex-end;
+    min-width: 0;
+  }
+
+  .sleep-bar-bar {
+    width: 100%;
+    max-width: 32px;
+    border-radius: 6px 6px 2px 2px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: background 0.3s ease, border-color 0.3s ease, height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    min-height: 4px;
+  }
+  .sleep-bar-bar.is-good {
+    background: rgba(107,227,164,0.55);
+    border-color: rgba(107,227,164,0.85);
+    box-shadow: 0 0 8px rgba(107,227,164,0.25);
+  }
+  .sleep-bar-bar.is-mid {
+    background: rgba(242,192,99,0.50);
+    border-color: rgba(242,192,99,0.80);
+  }
+  .sleep-bar-bar.is-low {
+    background: rgba(255,107,107,0.50);
+    border-color: rgba(255,107,107,0.80);
+  }
+
+  .sleep-bar-label {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+  }
+  .sleep-bar-hours {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 9.5px;
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+  }
+  .sleep-bar-hours.is-empty { color: var(--text-tertiary); opacity: 0.5; }
+
+  /* Sleep notes textarea */
+  .sleep-notes-input {
+    width: 100%;
+    min-height: 60px;
+    resize: vertical;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 13px;
+    padding: 10px 12px;
+    outline: none;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .sleep-notes-input:focus {
+    border-color: rgba(255,255,255,0.28);
+    background: rgba(255,255,255,0.06);
+  }
+  .sleep-notes-input::placeholder { color: var(--text-tertiary); }
+
   /* ===== Responsive ===== */
   @media (max-width: 480px) {
     body { padding: calc(env(safe-area-inset-top, 0px) + 18px) 16px calc(env(safe-area-inset-bottom, 0px) + 96px); }
@@ -1953,6 +2191,10 @@
     .habit-day-dot { width: 10px; height: 10px; }
     .habit-week { gap: 3px; }
     .habit-emoji-input, .habit-name-input { flex: 1 1 100%; }
+    .metric-form { grid-template-columns: repeat(2, 1fr); }
+    .metric-history-date { width: 64px; }
+    .sleep-bar-bar { max-width: 22px; }
+    .star-rating-btn { font-size: 20px; }
   }
 </style>
 </head>
@@ -2033,6 +2275,26 @@
         </div>
         <div class="summary-card-value" id="homeGymValue">0</div>
         <div class="summary-card-sub" id="homeGymSub">volume this week</div>
+      </button>
+
+      <button class="summary-card" type="button" data-tab="body">
+        <div class="summary-card-head">
+          <span class="summary-card-icon">⚖️</span>
+          <span class="summary-card-label">Body</span>
+          <span class="summary-card-arrow">→</span>
+        </div>
+        <div class="summary-card-value" id="homeBodyValue">—</div>
+        <div class="summary-card-sub" id="homeBodySub">no entries yet</div>
+      </button>
+
+      <button class="summary-card" type="button" data-tab="sleep">
+        <div class="summary-card-head">
+          <span class="summary-card-icon">🛌</span>
+          <span class="summary-card-label">Sleep</span>
+          <span class="summary-card-arrow">→</span>
+        </div>
+        <div class="summary-card-value" id="homeSleepValue">—</div>
+        <div class="summary-card-sub" id="homeSleepSub">no nights logged</div>
       </button>
     </div>
   </div>
@@ -2516,6 +2778,183 @@
 
   </main>
 
+  <main id="page-body" class="page">
+
+  <h1 class="dash-title">Body</h1>
+
+  <!-- Current stats -->
+  <div class="section">
+    <div class="section-title">Current</div>
+    <div class="gm-card">
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-label">Weight</div>
+          <div class="stat-value" id="bodyCurrentWeight">—</div>
+          <div class="stat-sub" id="bodyCurrentWeightSub">no entries yet</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Change · 7d</div>
+          <div class="stat-value" id="bodyChange7">—</div>
+          <div class="stat-sub">vs 7 days ago</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Change · 30d</div>
+          <div class="stat-value" id="bodyChange30">—</div>
+          <div class="stat-sub">vs 30 days ago</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Log today -->
+  <div class="section">
+    <div class="section-title" id="bodyLogTitle">Log today</div>
+    <div class="gm-card">
+      <div class="metric-form">
+        <div class="metric-field">
+          <label class="metric-field-label" for="bodyWeightInput">Weight (lbs)</label>
+          <input id="bodyWeightInput" class="metric-field-input" type="number" step="0.1" min="0" inputmode="decimal" placeholder="0.0" />
+        </div>
+        <div class="metric-field">
+          <label class="metric-field-label" for="bodyFatInput">Body fat (%)</label>
+          <input id="bodyFatInput" class="metric-field-input" type="number" step="0.1" min="0" max="100" inputmode="decimal" placeholder="optional" />
+        </div>
+        <div class="metric-field">
+          <label class="metric-field-label" for="bodyWaistInput">Waist (in)</label>
+          <input id="bodyWaistInput" class="metric-field-input" type="number" step="0.1" min="0" inputmode="decimal" placeholder="optional" />
+        </div>
+        <div class="metric-field">
+          <label class="metric-field-label" for="bodyChestInput">Chest (in)</label>
+          <input id="bodyChestInput" class="metric-field-input" type="number" step="0.1" min="0" inputmode="decimal" placeholder="optional" />
+        </div>
+        <div class="metric-field">
+          <label class="metric-field-label" for="bodyArmInput">Arm (in)</label>
+          <input id="bodyArmInput" class="metric-field-input" type="number" step="0.1" min="0" inputmode="decimal" placeholder="optional" />
+        </div>
+        <div class="metric-field">
+          <label class="metric-field-label" for="bodyThighInput">Thigh (in)</label>
+          <input id="bodyThighInput" class="metric-field-input" type="number" step="0.1" min="0" inputmode="decimal" placeholder="optional" />
+        </div>
+      </div>
+      <div class="metric-save-row">
+        <button id="bodySaveBtn" class="goal-add-btn">Save entry</button>
+        <span class="metric-status" id="bodySaveStatus"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Weight graph -->
+  <div class="section">
+    <div class="section-title">Weight over time</div>
+    <div class="gm-card">
+      <div class="graph-wrap">
+        <svg class="graph-svg" id="weightGraph" viewBox="0 0 600 200" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="weightGraphGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#6BE3A4" stop-opacity="0.30" />
+              <stop offset="100%" stop-color="#6BE3A4" stop-opacity="0" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <div id="weightGraphEmpty" class="graph-empty">Log a few entries to see your weight trend.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- History -->
+  <div class="section">
+    <div class="section-title">History</div>
+    <div class="gm-card">
+      <ul id="bodyHistoryList" class="metric-history"></ul>
+      <div id="bodyHistoryEmpty" class="metric-empty">No entries yet — log your first one above.</div>
+    </div>
+  </div>
+
+  </main>
+
+  <main id="page-sleep" class="page">
+
+  <h1 class="dash-title">Sleep</h1>
+
+  <!-- This week stats -->
+  <div class="section">
+    <div class="section-title" id="sleepWeekTitle">This week</div>
+    <div class="gm-card">
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-label">Avg duration</div>
+          <div class="stat-value" id="sleepAvgDuration">—</div>
+          <div class="stat-sub" id="sleepAvgDurationSub">no nights logged</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Avg quality</div>
+          <div class="stat-value" id="sleepAvgQuality">—</div>
+          <div class="stat-sub" id="sleepAvgQualityStars">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Nights logged</div>
+          <div class="stat-value" id="sleepNightCount">0</div>
+          <div class="stat-sub">of 7</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Log last night -->
+  <div class="section">
+    <div class="section-title">Log last night</div>
+    <div class="gm-card">
+      <div class="metric-form">
+        <div class="metric-field">
+          <label class="metric-field-label" for="sleepDateInput">For wake date</label>
+          <input id="sleepDateInput" class="metric-field-input" type="date" />
+        </div>
+        <div class="metric-field">
+          <label class="metric-field-label" for="sleepBedtimeInput">Bedtime</label>
+          <input id="sleepBedtimeInput" class="metric-field-input" type="time" />
+        </div>
+        <div class="metric-field">
+          <label class="metric-field-label" for="sleepWakeInput">Wake time</label>
+          <input id="sleepWakeInput" class="metric-field-input" type="time" />
+        </div>
+        <div class="metric-field">
+          <span class="metric-field-label">Quality</span>
+          <div class="star-rating" id="sleepQualityStars" role="radiogroup" aria-label="Sleep quality">
+            <button type="button" class="star-rating-btn" data-value="1" aria-label="1 star">★</button>
+            <button type="button" class="star-rating-btn" data-value="2" aria-label="2 stars">★</button>
+            <button type="button" class="star-rating-btn" data-value="3" aria-label="3 stars">★</button>
+            <button type="button" class="star-rating-btn" data-value="4" aria-label="4 stars">★</button>
+            <button type="button" class="star-rating-btn" data-value="5" aria-label="5 stars">★</button>
+          </div>
+        </div>
+      </div>
+      <textarea id="sleepNotesInput" class="sleep-notes-input" placeholder="Notes (optional) — dreams, wake-ups, how you felt…"></textarea>
+      <div class="metric-save-row" style="margin-top: 12px;">
+        <button id="sleepSaveBtn" class="goal-add-btn">Save night</button>
+        <span class="metric-status" id="sleepSaveStatus"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Last 7 nights bar chart -->
+  <div class="section">
+    <div class="section-title">Last 7 nights</div>
+    <div class="gm-card">
+      <div class="sleep-bars" id="sleepBars"></div>
+    </div>
+  </div>
+
+  <!-- History -->
+  <div class="section">
+    <div class="section-title">History</div>
+    <div class="gm-card">
+      <ul id="sleepHistoryList" class="metric-history"></ul>
+      <div id="sleepHistoryEmpty" class="metric-empty">No nights logged yet — log last night above.</div>
+    </div>
+  </div>
+
+  </main>
+
   <!-- Photo modal -->
   <div class="photo-modal" id="photoModal" role="dialog" aria-modal="true">
     <button class="photo-modal-close" id="photoModalClose" aria-label="Close">×</button>
@@ -2542,6 +2981,14 @@
     <button class="nav-tab" data-page="habits" type="button" role="tab" aria-selected="false">
       <span class="nav-tab-icon">🎯</span>
       <span class="nav-tab-label">Habits</span>
+    </button>
+    <button class="nav-tab" data-page="body" type="button" role="tab" aria-selected="false">
+      <span class="nav-tab-icon">⚖️</span>
+      <span class="nav-tab-label">Body</span>
+    </button>
+    <button class="nav-tab" data-page="sleep" type="button" role="tab" aria-selected="false">
+      <span class="nav-tab-icon">🛌</span>
+      <span class="nav-tab-label">Sleep</span>
     </button>
   </nav>
 
@@ -4410,6 +4857,604 @@
   wireHabits();
   renderHabits();
 
+  // ---------------- Body metrics ----------------
+  function getBodyEntries() { return storeGet('body_metrics_v1') || []; }
+  function setBodyEntries(arr) { storeSet('body_metrics_v1', arr); }
+
+  function getEntryForDate(ymd) {
+    return getBodyEntries().find(function (e) { return e.date === ymd; }) || null;
+  }
+
+  function findClosestEntryBefore(ymd) {
+    // Returns the most recent entry with date <= ymd (most recent)
+    const entries = getBodyEntries()
+      .filter(function (e) { return e.date <= ymd; })
+      .sort(function (a, b) { return a.date < b.date ? 1 : -1; });
+    return entries[0] || null;
+  }
+
+  function ymdMinusDays(ymd, n) {
+    const d = ymdToDate(ymd);
+    d.setDate(d.getDate() - n);
+    return toYMD(d);
+  }
+
+  function findNearestEntryOnOrBefore(targetYmd) {
+    return findClosestEntryBefore(targetYmd);
+  }
+
+  function bodyChange(daysAgo) {
+    const entries = getBodyEntries();
+    if (entries.length === 0) return null;
+    const sorted = entries.slice().sort(function (a, b) {
+      return a.date < b.date ? -1 : 1;
+    });
+    const latest = sorted[sorted.length - 1];
+    const refYmd = ymdMinusDays(latest.date, daysAgo);
+    const ref = findNearestEntryOnOrBefore(refYmd);
+    if (!ref || ref.date === latest.date) return null;
+    return {
+      from: ref.weight,
+      to: latest.weight,
+      diff: latest.weight - ref.weight,
+      refDate: ref.date
+    };
+  }
+
+  function renderBodyStats() {
+    const entries = getBodyEntries().slice().sort(function (a, b) {
+      return a.date < b.date ? -1 : 1;
+    });
+
+    const curEl = document.getElementById('bodyCurrentWeight');
+    const curSub = document.getElementById('bodyCurrentWeightSub');
+    if (entries.length === 0) {
+      curEl.textContent = '—';
+      curSub.textContent = 'no entries yet';
+    } else {
+      const latest = entries[entries.length - 1];
+      curEl.textContent = latest.weight + ' lbs';
+      curSub.textContent = 'last logged ' + formatDate(latest.date);
+    }
+
+    function fmtChange(c) {
+      if (!c) return { val: '—', sub: null };
+      const sign = c.diff > 0 ? '+' : '';
+      return { val: sign + c.diff.toFixed(1), refDate: c.refDate };
+    }
+    const c7 = bodyChange(7);
+    const c30 = bodyChange(30);
+    const change7El = document.getElementById('bodyChange7');
+    const change30El = document.getElementById('bodyChange30');
+    if (c7) {
+      const sign = c7.diff > 0 ? '+' : '';
+      change7El.textContent = sign + c7.diff.toFixed(1);
+      change7El.classList.toggle('is-accent', c7.diff < 0);
+      change7El.classList.toggle('is-warning', c7.diff > 0);
+    } else {
+      change7El.textContent = '—';
+      change7El.classList.remove('is-accent', 'is-warning');
+    }
+    if (c30) {
+      const sign = c30.diff > 0 ? '+' : '';
+      change30El.textContent = sign + c30.diff.toFixed(1);
+      change30El.classList.toggle('is-accent', c30.diff < 0);
+      change30El.classList.toggle('is-warning', c30.diff > 0);
+    } else {
+      change30El.textContent = '—';
+      change30El.classList.remove('is-accent', 'is-warning');
+    }
+  }
+
+  function renderBodyHistory() {
+    const list = document.getElementById('bodyHistoryList');
+    const empty = document.getElementById('bodyHistoryEmpty');
+    const entries = getBodyEntries().slice().sort(function (a, b) {
+      return a.date < b.date ? 1 : -1;
+    });
+    list.innerHTML = '';
+    if (entries.length === 0) {
+      empty.style.display = '';
+      return;
+    }
+    empty.style.display = 'none';
+    entries.forEach(function (e) {
+      const li = document.createElement('li');
+      li.className = 'metric-history-row';
+      const d = document.createElement('div');
+      d.className = 'metric-history-date';
+      d.textContent = formatDate(e.date);
+      li.appendChild(d);
+      const main = document.createElement('div');
+      main.className = 'metric-history-main';
+      main.textContent = e.weight + ' lbs';
+      li.appendChild(main);
+      const extras = document.createElement('div');
+      extras.className = 'metric-history-extras';
+      const bits = [];
+      if (e.bodyFat != null) bits.push(e.bodyFat + '% bf');
+      if (e.waist != null) bits.push(e.waist + '" waist');
+      if (e.chest != null) bits.push(e.chest + '" chest');
+      if (e.arm != null) bits.push(e.arm + '" arm');
+      if (e.thigh != null) bits.push(e.thigh + '" thigh');
+      extras.textContent = bits.join(' · ');
+      li.appendChild(extras);
+      const del = document.createElement('button');
+      del.className = 'metric-history-delete';
+      del.type = 'button';
+      del.textContent = '×';
+      del.title = 'Delete entry';
+      del.addEventListener('click', function () {
+        if (!confirm('Delete entry from ' + formatDate(e.date) + '?')) return;
+        const all = getBodyEntries().filter(function (x) { return !(x.date === e.date); });
+        setBodyEntries(all);
+        renderBodyAll();
+      });
+      li.appendChild(del);
+      list.appendChild(li);
+    });
+  }
+
+  function drawWeightGraph() {
+    const svg = document.getElementById('weightGraph');
+    const empty = document.getElementById('weightGraphEmpty');
+    const entries = getBodyEntries().slice().sort(function (a, b) {
+      return a.date < b.date ? -1 : 1;
+    });
+
+    // Clear previous
+    Array.from(svg.querySelectorAll('.graph-axis, .graph-grid, .graph-line, .graph-area, .graph-dot, .graph-label, .graph-yLabel'))
+      .forEach(function (n) { n.remove(); });
+
+    if (entries.length < 2) {
+      empty.style.display = '';
+      svg.style.display = 'none';
+      return;
+    }
+    empty.style.display = 'none';
+    svg.style.display = '';
+
+    const W = 600, H = 200;
+    const padL = 40, padR = 12, padT = 16, padB = 24;
+    const plotW = W - padL - padR;
+    const plotH = H - padT - padB;
+    const NS = 'http://www.w3.org/2000/svg';
+
+    const weights = entries.map(function (e) { return e.weight; });
+    const minW = Math.min.apply(null, weights);
+    const maxW = Math.max.apply(null, weights);
+    const range = Math.max(1, maxW - minW);
+    const pad = range * 0.15;
+    const yMin = Math.floor(minW - pad);
+    const yMax = Math.ceil(maxW + pad);
+    const ySpan = yMax - yMin;
+
+    // Time axis spans first to last entry
+    const firstTs = ymdToDate(entries[0].date).getTime();
+    const lastTs = ymdToDate(entries[entries.length - 1].date).getTime();
+    const tSpan = Math.max(1, lastTs - firstTs);
+
+    // Y grid + labels
+    const yTicks = 4;
+    for (let i = 0; i <= yTicks; i++) {
+      const y = padT + plotH * i / yTicks;
+      const ln = document.createElementNS(NS, 'line');
+      ln.setAttribute('class', 'graph-grid');
+      ln.setAttribute('x1', padL); ln.setAttribute('y1', y);
+      ln.setAttribute('x2', W - padR); ln.setAttribute('y2', y);
+      svg.appendChild(ln);
+      const lbl = document.createElementNS(NS, 'text');
+      lbl.setAttribute('class', 'graph-label graph-yLabel');
+      lbl.setAttribute('x', padL - 6);
+      lbl.setAttribute('y', y + 3);
+      lbl.setAttribute('text-anchor', 'end');
+      const val = yMax - (ySpan * i / yTicks);
+      lbl.textContent = val.toFixed(0);
+      svg.appendChild(lbl);
+    }
+
+    // X labels: 4 evenly spaced dates
+    const labelCount = Math.min(4, entries.length);
+    for (let i = 0; i < labelCount; i++) {
+      const t = labelCount === 1 ? 0 : i / (labelCount - 1);
+      const idx = Math.round(t * (entries.length - 1));
+      const e = entries[idx];
+      const x = padL + plotW * t;
+      const lbl = document.createElementNS(NS, 'text');
+      lbl.setAttribute('class', 'graph-label');
+      lbl.setAttribute('x', x);
+      lbl.setAttribute('y', H - 6);
+      lbl.setAttribute('text-anchor', 'middle');
+      const d = ymdToDate(e.date);
+      const mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()];
+      lbl.textContent = mo + ' ' + d.getDate();
+      svg.appendChild(lbl);
+    }
+
+    // Build points
+    const pts = entries.map(function (e) {
+      const ts = ymdToDate(e.date).getTime();
+      const x = padL + plotW * ((ts - firstTs) / tSpan);
+      const y = padT + plotH * (1 - (e.weight - yMin) / ySpan);
+      return { x: x, y: y };
+    });
+    let path = '';
+    pts.forEach(function (p, i) {
+      path += (i === 0 ? 'M ' : ' L ') + p.x.toFixed(1) + ',' + p.y.toFixed(1);
+    });
+    const areaPath = path +
+      ' L ' + pts[pts.length - 1].x.toFixed(1) + ',' + (padT + plotH).toFixed(1) +
+      ' L ' + pts[0].x.toFixed(1) + ',' + (padT + plotH).toFixed(1) + ' Z';
+
+    const area = document.createElementNS(NS, 'path');
+    area.setAttribute('class', 'graph-area');
+    area.setAttribute('d', areaPath);
+    area.setAttribute('fill', 'url(#weightGraphGradient)');
+    svg.appendChild(area);
+
+    const line = document.createElementNS(NS, 'path');
+    line.setAttribute('class', 'graph-line');
+    line.setAttribute('d', path);
+    line.style.stroke = 'var(--success)';
+    line.style.filter = 'drop-shadow(0 0 6px rgba(107,227,164,0.45))';
+    svg.appendChild(line);
+
+    pts.forEach(function (p) {
+      const c = document.createElementNS(NS, 'circle');
+      c.setAttribute('class', 'graph-dot');
+      c.setAttribute('cx', p.x);
+      c.setAttribute('cy', p.y);
+      c.setAttribute('r', 3);
+      c.style.fill = 'var(--success)';
+      svg.appendChild(c);
+    });
+  }
+
+  function renderBodyAll() {
+    renderBodyStats();
+    renderBodyHistory();
+    drawWeightGraph();
+    if (typeof renderHomeSummary === 'function') renderHomeSummary();
+  }
+
+  function wireBody() {
+    const weightInp = document.getElementById('bodyWeightInput');
+    const fatInp    = document.getElementById('bodyFatInput');
+    const waistInp  = document.getElementById('bodyWaistInput');
+    const chestInp  = document.getElementById('bodyChestInput');
+    const armInp    = document.getElementById('bodyArmInput');
+    const thighInp  = document.getElementById('bodyThighInput');
+    const saveBtn   = document.getElementById('bodySaveBtn');
+    const statusEl  = document.getElementById('bodySaveStatus');
+    const titleEl   = document.getElementById('bodyLogTitle');
+
+    titleEl.textContent = 'Log for ' + formatDate(getActiveDateString());
+
+    // Prefill today's entry if exists
+    const existing = getEntryForDate(getActiveDateString());
+    if (existing) {
+      weightInp.value = existing.weight;
+      if (existing.bodyFat != null) fatInp.value = existing.bodyFat;
+      if (existing.waist != null) waistInp.value = existing.waist;
+      if (existing.chest != null) chestInp.value = existing.chest;
+      if (existing.arm != null) armInp.value = existing.arm;
+      if (existing.thigh != null) thighInp.value = existing.thigh;
+    }
+
+    function showStatus(msg, kind) {
+      statusEl.textContent = msg;
+      statusEl.classList.remove('is-error', 'is-success');
+      if (kind) statusEl.classList.add('is-' + kind);
+      setTimeout(function () {
+        if (statusEl.textContent === msg) {
+          statusEl.textContent = '';
+          statusEl.classList.remove('is-error', 'is-success');
+        }
+      }, 3500);
+    }
+
+    function parseOpt(v) {
+      const s = (v || '').toString().trim();
+      if (!s) return null;
+      const n = parseFloat(s);
+      return isNaN(n) ? null : n;
+    }
+
+    saveBtn.addEventListener('click', function () {
+      const w = parseFloat(weightInp.value);
+      if (!w || w <= 0) {
+        showStatus('Enter a valid weight.', 'error');
+        weightInp.focus();
+        return;
+      }
+      const today = getActiveDateString();
+      const entries = getBodyEntries().filter(function (e) { return e.date !== today; });
+      entries.push({
+        date: today,
+        weight: w,
+        bodyFat: parseOpt(fatInp.value),
+        waist:   parseOpt(waistInp.value),
+        chest:   parseOpt(chestInp.value),
+        arm:     parseOpt(armInp.value),
+        thigh:   parseOpt(thighInp.value)
+      });
+      setBodyEntries(entries);
+      showStatus('Saved.', 'success');
+      renderBodyAll();
+    });
+
+    [weightInp, fatInp, waistInp, chestInp, armInp, thighInp].forEach(function (inp) {
+      inp.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') { e.preventDefault(); saveBtn.click(); }
+      });
+    });
+  }
+
+  // ---------------- Sleep ----------------
+  function getSleepLog(ymd) { return storeGet('sleep_log:' + ymd) || null; }
+  function setSleepLog(ymd, entry) { storeSet('sleep_log:' + ymd, entry); }
+  function deleteSleepLog(ymd) { storeDelete('sleep_log:' + ymd); }
+
+  function listSleepLogs() {
+    const keys = storeListKeys('sleep_log:');
+    return keys.map(function (k) {
+      return { ymd: k.slice('sleep_log:'.length), entry: storeGet(k) };
+    }).filter(function (x) { return x.entry; });
+  }
+
+  function sleepDurationMinutes(bedtime, wakeTime) {
+    if (!bedtime || !wakeTime) return 0;
+    const bp = bedtime.split(':').map(Number);
+    const wp = wakeTime.split(':').map(Number);
+    let bedM = bp[0] * 60 + (bp[1] || 0);
+    let wakeM = wp[0] * 60 + (wp[1] || 0);
+    if (wakeM <= bedM) wakeM += 24 * 60;
+    return wakeM - bedM;
+  }
+
+  function formatDuration(mins) {
+    if (!mins || mins <= 0) return '—';
+    const h = Math.floor(mins / 60);
+    const m = mins % 60;
+    return h + 'h ' + (m < 10 ? '0' + m : m) + 'm';
+  }
+
+  function starString(quality) {
+    const n = Math.max(0, Math.min(5, Math.round(quality || 0)));
+    return '★★★★★'.slice(0, n) + '☆☆☆☆☆'.slice(0, 5 - n);
+  }
+
+  function renderSleepStats() {
+    const dates = getWeekDates();
+    let totalMins = 0, qSum = 0, count = 0;
+    dates.forEach(function (ymd) {
+      const e = getSleepLog(ymd);
+      if (!e) return;
+      count += 1;
+      totalMins += sleepDurationMinutes(e.bedtime, e.wakeTime);
+      qSum += (e.quality || 0);
+    });
+    const avgDur = document.getElementById('sleepAvgDuration');
+    const avgDurSub = document.getElementById('sleepAvgDurationSub');
+    const avgQual = document.getElementById('sleepAvgQuality');
+    const avgQualStars = document.getElementById('sleepAvgQualityStars');
+    const nightCount = document.getElementById('sleepNightCount');
+
+    if (count === 0) {
+      avgDur.textContent = '—';
+      avgDurSub.textContent = 'no nights logged';
+      avgQual.textContent = '—';
+      avgQualStars.textContent = '—';
+    } else {
+      avgDur.textContent = formatDuration(Math.round(totalMins / count));
+      avgDurSub.textContent = 'across ' + count + ' night' + (count === 1 ? '' : 's');
+      const q = qSum / count;
+      avgQual.textContent = q.toFixed(1);
+      avgQualStars.textContent = starString(q);
+    }
+    nightCount.textContent = count;
+
+    const wkStart = getWeekStart();
+    document.getElementById('sleepWeekTitle').textContent = 'This week · since ' + formatDate(toYMD(wkStart));
+  }
+
+  function renderSleepBars() {
+    const wrap = document.getElementById('sleepBars');
+    wrap.innerHTML = '';
+    // Last 7 days ending today
+    const today = ymdToDate(toYMD(new Date()));
+    const days = [];
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date(today);
+      d.setDate(d.getDate() - i);
+      days.push({
+        ymd: toYMD(d),
+        label: ['S','M','T','W','T','F','S'][d.getDay()]
+      });
+    }
+    // Max hours for scaling (10h baseline, but expand if needed)
+    let maxMins = 10 * 60;
+    days.forEach(function (d) {
+      const e = getSleepLog(d.ymd);
+      if (e) {
+        const m = sleepDurationMinutes(e.bedtime, e.wakeTime);
+        if (m > maxMins) maxMins = m;
+      }
+    });
+
+    days.forEach(function (d) {
+      const col = document.createElement('div');
+      col.className = 'sleep-bar';
+      const e = getSleepLog(d.ymd);
+      const mins = e ? sleepDurationMinutes(e.bedtime, e.wakeTime) : 0;
+      const hours = mins / 60;
+
+      const bar = document.createElement('div');
+      bar.className = 'sleep-bar-bar';
+      const h = mins > 0 ? Math.max(4, (mins / maxMins) * 100) : 4;
+      bar.style.height = h + '%';
+      if (mins > 0) {
+        if (hours >= 7) bar.classList.add('is-good');
+        else if (hours >= 6) bar.classList.add('is-mid');
+        else bar.classList.add('is-low');
+      }
+      bar.title = formatDate(d.ymd) + ': ' + (mins > 0 ? formatDuration(mins) : 'no log');
+      col.appendChild(bar);
+
+      const hrs = document.createElement('span');
+      hrs.className = 'sleep-bar-hours' + (mins > 0 ? '' : ' is-empty');
+      hrs.textContent = mins > 0 ? hours.toFixed(1) + 'h' : '—';
+      col.appendChild(hrs);
+
+      const lbl = document.createElement('span');
+      lbl.className = 'sleep-bar-label';
+      lbl.textContent = d.label;
+      col.appendChild(lbl);
+
+      wrap.appendChild(col);
+    });
+  }
+
+  function renderSleepHistory() {
+    const list = document.getElementById('sleepHistoryList');
+    const empty = document.getElementById('sleepHistoryEmpty');
+    const logs = listSleepLogs().sort(function (a, b) {
+      return a.ymd < b.ymd ? 1 : -1;
+    });
+    list.innerHTML = '';
+    if (logs.length === 0) {
+      empty.style.display = '';
+      return;
+    }
+    empty.style.display = 'none';
+    logs.forEach(function (item) {
+      const e = item.entry;
+      const li = document.createElement('li');
+      li.className = 'metric-history-row';
+      const d = document.createElement('div');
+      d.className = 'metric-history-date';
+      d.textContent = formatDate(item.ymd);
+      li.appendChild(d);
+      const main = document.createElement('div');
+      main.className = 'metric-history-main';
+      main.textContent = formatDuration(sleepDurationMinutes(e.bedtime, e.wakeTime));
+      li.appendChild(main);
+      const extras = document.createElement('div');
+      extras.className = 'metric-history-extras';
+      const bits = [];
+      bits.push((e.bedtime || '—') + ' → ' + (e.wakeTime || '—'));
+      if (e.quality) bits.push(starString(e.quality));
+      if (e.notes) bits.push('“' + e.notes.slice(0, 60) + (e.notes.length > 60 ? '…' : '') + '”');
+      extras.textContent = bits.join(' · ');
+      li.appendChild(extras);
+      const del = document.createElement('button');
+      del.className = 'metric-history-delete';
+      del.type = 'button';
+      del.textContent = '×';
+      del.title = 'Delete night';
+      del.addEventListener('click', function () {
+        if (!confirm('Delete sleep log for ' + formatDate(item.ymd) + '?')) return;
+        deleteSleepLog(item.ymd);
+        renderSleepAll();
+      });
+      li.appendChild(del);
+      list.appendChild(li);
+    });
+  }
+
+  function renderSleepAll() {
+    renderSleepStats();
+    renderSleepBars();
+    renderSleepHistory();
+    if (typeof renderHomeSummary === 'function') renderHomeSummary();
+  }
+
+  const sleepState = { quality: 0 };
+
+  function setStars(value) {
+    sleepState.quality = value;
+    const btns = document.querySelectorAll('#sleepQualityStars .star-rating-btn');
+    btns.forEach(function (b) {
+      const v = parseInt(b.dataset.value, 10);
+      b.classList.toggle('is-on', v <= value);
+    });
+  }
+
+  function wireSleep() {
+    const dateInp = document.getElementById('sleepDateInput');
+    const bedInp = document.getElementById('sleepBedtimeInput');
+    const wakeInp = document.getElementById('sleepWakeInput');
+    const notesInp = document.getElementById('sleepNotesInput');
+    const saveBtn = document.getElementById('sleepSaveBtn');
+    const statusEl = document.getElementById('sleepSaveStatus');
+
+    // Defaults: today as wake date, 22:30 bedtime, 07:00 wake
+    const today = toYMD(new Date());
+    dateInp.value = today;
+
+    // Try to pre-fill from today's entry, else default
+    function refillFor(ymd) {
+      const e = getSleepLog(ymd);
+      if (e) {
+        bedInp.value = e.bedtime || '22:30';
+        wakeInp.value = e.wakeTime || '07:00';
+        notesInp.value = e.notes || '';
+        setStars(e.quality || 0);
+      } else {
+        bedInp.value = '22:30';
+        wakeInp.value = '07:00';
+        notesInp.value = '';
+        setStars(0);
+      }
+    }
+    refillFor(today);
+
+    dateInp.addEventListener('change', function () {
+      refillFor(dateInp.value);
+    });
+
+    document.querySelectorAll('#sleepQualityStars .star-rating-btn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        const v = parseInt(b.dataset.value, 10);
+        // Tapping the same star again clears it
+        setStars(sleepState.quality === v ? 0 : v);
+      });
+    });
+
+    function showStatus(msg, kind) {
+      statusEl.textContent = msg;
+      statusEl.classList.remove('is-error', 'is-success');
+      if (kind) statusEl.classList.add('is-' + kind);
+      setTimeout(function () {
+        if (statusEl.textContent === msg) {
+          statusEl.textContent = '';
+          statusEl.classList.remove('is-error', 'is-success');
+        }
+      }, 3500);
+    }
+
+    saveBtn.addEventListener('click', function () {
+      const ymd = dateInp.value;
+      if (!ymd) { showStatus('Pick a wake date.', 'error'); return; }
+      const bed = bedInp.value;
+      const wake = wakeInp.value;
+      if (!bed || !wake) { showStatus('Fill in bedtime and wake time.', 'error'); return; }
+      setSleepLog(ymd, {
+        bedtime: bed,
+        wakeTime: wake,
+        quality: sleepState.quality,
+        notes: (notesInp.value || '').trim()
+      });
+      showStatus('Saved.', 'success');
+      renderSleepAll();
+    });
+  }
+
+  wireBody();
+  renderBodyAll();
+  wireSleep();
+  renderSleepAll();
+
   // ---------------- Home summary ----------------
   function renderHomeSummary() {
     if (!document.getElementById('homeGoalsValue')) return;
@@ -4505,6 +5550,56 @@
     } else {
       gymSub.textContent = 'volume · ' + sessionCount +
         (sessionCount === 1 ? ' session' : ' sessions') + ' this week';
+    }
+
+    // Body
+    const bodyEntries = getBodyEntries().slice().sort(function (a, b) {
+      return a.date < b.date ? -1 : 1;
+    });
+    const bv = document.getElementById('homeBodyValue');
+    const bs = document.getElementById('homeBodySub');
+    if (bodyEntries.length === 0) {
+      bv.textContent = '—';
+      bs.textContent = 'no entries yet';
+      bv.classList.remove('is-accent', 'is-warning');
+    } else {
+      const latest = bodyEntries[bodyEntries.length - 1];
+      bv.textContent = latest.weight + ' lbs';
+      const c7 = bodyChange(7);
+      if (c7) {
+        const sign = c7.diff > 0 ? '+' : '';
+        bs.textContent = sign + c7.diff.toFixed(1) + ' vs ' + formatDate(c7.refDate);
+        bv.classList.toggle('is-accent', c7.diff < 0);
+        bv.classList.toggle('is-warning', c7.diff > 0);
+      } else {
+        bs.textContent = 'logged ' + formatDate(latest.date);
+        bv.classList.remove('is-accent', 'is-warning');
+      }
+    }
+
+    // Sleep — show last night's entry (today's wake date first, then yesterday)
+    const todayYmd = toYMD(new Date());
+    const yesterdayYmd = (function () {
+      const d = new Date(); d.setDate(d.getDate() - 1); return toYMD(d);
+    })();
+    const lastSleep = getSleepLog(todayYmd) || getSleepLog(yesterdayYmd) || null;
+    const lastSleepYmd = getSleepLog(todayYmd) ? todayYmd : (getSleepLog(yesterdayYmd) ? yesterdayYmd : null);
+    const slv = document.getElementById('homeSleepValue');
+    const sls = document.getElementById('homeSleepSub');
+    if (!lastSleep) {
+      slv.textContent = '—';
+      sls.textContent = 'no nights logged';
+      slv.classList.remove('is-accent', 'is-warning');
+    } else {
+      const mins = sleepDurationMinutes(lastSleep.bedtime, lastSleep.wakeTime);
+      const hours = mins / 60;
+      slv.textContent = formatDuration(mins);
+      slv.classList.toggle('is-accent', hours >= 7);
+      slv.classList.toggle('is-warning', hours < 6);
+      const bits = [];
+      if (lastSleep.quality) bits.push(starString(lastSleep.quality));
+      bits.push(lastSleepYmd === todayYmd ? 'last night' : formatDate(lastSleepYmd));
+      sls.textContent = bits.join(' · ');
     }
   }
 
