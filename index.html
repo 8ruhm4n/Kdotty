@@ -63,7 +63,16 @@
     -webkit-backdrop-filter: blur(24px) saturate(1.5);
     box-shadow: 0 12px 40px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
     z-index: 100;
+    max-width: calc(100vw - 20px);
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    scroll-snap-type: x proximity;
   }
+
+  .bottom-nav::-webkit-scrollbar { display: none; }
 
   .nav-tab {
     display: inline-flex;
@@ -80,6 +89,9 @@
     letter-spacing: 0.04em;
     font-family: inherit;
     transition: background 0.25s ease, color 0.25s ease, transform 0.18s ease;
+    flex-shrink: 0;
+    scroll-snap-align: center;
+    white-space: nowrap;
   }
 
   .nav-tab:hover { color: var(--text-secondary); }
@@ -4275,13 +4287,23 @@
         p.classList.toggle('is-active', on);
       });
       if (!matched) return;
+      let activeTab = null;
       tabs.forEach(function (t) {
         const on = t.dataset.page === name;
         t.classList.toggle('is-active', on);
         t.setAttribute('aria-selected', on ? 'true' : 'false');
+        if (on) activeTab = t;
       });
       try { localStorage.setItem('active_page_v1', name); } catch (e) {}
       window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+      // Center the active tab inside the scrollable nav so it's always visible.
+      if (activeTab && activeTab.scrollIntoView) {
+        try {
+          activeTab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        } catch (e) {
+          activeTab.scrollIntoView();
+        }
+      }
     }
 
     tabs.forEach(function (t) {
