@@ -1930,6 +1930,347 @@
 
   .habit-name-input { flex: 1; min-width: 140px; }
 
+  /* ===== Gym v2 — Coach styles (po-* prefix) ===== */
+  .po-coach-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+
+  .po-filters { margin-bottom: 18px; }
+  .po-seg-row {
+    display: flex; gap: 10px; margin-bottom: 8px; align-items: center;
+  }
+  .po-seg-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--text-tertiary);
+    min-width: 36px;
+  }
+  .po-seg-control {
+    display: flex; flex: 1;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px; padding: 4px; gap: 3px;
+  }
+  .po-seg-btn {
+    flex: 1; padding: 10px 8px; border: none; background: transparent;
+    color: var(--text-tertiary); border-radius: 8px;
+    font-family: inherit; font-size: 12.5px; font-weight: 600;
+    cursor: pointer; transition: background 0.15s, color 0.15s;
+  }
+  .po-seg-btn:hover { color: var(--text-secondary); background: rgba(255,255,255,0.04); }
+  .po-seg-btn.is-active {
+    background: linear-gradient(180deg, #FFFFFF 0%, #E8E5DD 100%);
+    color: #0A0A0B;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 4px 12px rgba(0,0,0,0.35);
+  }
+
+  .po-sub-section { margin-top: 22px; }
+  .po-sub-section:first-of-type { margin-top: 0; }
+  .po-sub-title {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--text-tertiary);
+    margin-bottom: 10px;
+  }
+  .po-sub-title::before {
+    content: ''; width: 24px; height: 1px; background: rgba(255,255,255,0.14);
+  }
+
+  .po-exercise-bar { display: flex; gap: 8px; align-items: center; }
+  .po-ex-select {
+    flex: 1 1 0; min-width: 0;
+    padding: 12px 14px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(0,0,0,0.28);
+    color: var(--text-primary); border-radius: 12px;
+    font-family: inherit; font-size: 14px; font-weight: 500;
+    appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M2 4l4 4 4-4' stroke='%2387847B' stroke-width='1.5' fill='none' stroke-linecap='round'/></svg>");
+    background-repeat: no-repeat; background-position: right 14px center;
+    padding-right: 36px;
+    text-overflow: ellipsis; overflow: hidden;
+  }
+  .po-ex-select:focus {
+    outline: none; border-color: rgba(255,255,255,0.40);
+    box-shadow: 0 0 0 3px rgba(255,255,255,0.06);
+  }
+  .po-ex-select:disabled { opacity: 0.5; }
+  .po-btn-icon {
+    width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.04);
+    color: var(--text-secondary); border-radius: 12px;
+    font-size: 16px; cursor: pointer;
+    transition: background 0.18s, border-color 0.18s, color 0.18s;
+    flex-shrink: 0;
+  }
+  .po-btn-icon:hover { background: rgba(255,255,255,0.10); color: var(--text-primary); }
+  .po-btn-icon:disabled { opacity: 0.4; cursor: not-allowed; }
+  .po-no-ex {
+    background: rgba(255,255,255,0.025);
+    border: 1px dashed rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 16px; text-align: center;
+    font-size: 13px; color: var(--text-tertiary); margin-top: 10px;
+  }
+
+  .po-bw-banner {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--text-secondary);
+    font-size: 11px; font-weight: 700; letter-spacing: 0.10em;
+    text-transform: uppercase; text-align: center;
+    padding: 8px; border-radius: 8px; margin-bottom: 12px; display: none;
+  }
+  .po-bw-banner.is-show { display: block; }
+
+  .po-last-set {
+    display: none; align-items: center; gap: 12px;
+    padding: 11px 14px;
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    margin-bottom: 12px; font-size: 12px;
+  }
+  .po-last-set.is-show { display: flex; }
+  .po-last-label {
+    color: var(--text-tertiary); font-weight: 700; letter-spacing: 0.10em;
+    text-transform: uppercase; font-size: 10px;
+  }
+  .po-last-value { color: var(--text-primary); font-weight: 700; font-variant-numeric: tabular-nums; }
+  .po-last-meta {
+    color: var(--text-tertiary); font-size: 11px; margin-left: auto;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  .po-log-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px;
+  }
+  .po-log-grid.is-bw-mode { grid-template-columns: 1fr; }
+  .po-field { display: flex; flex-direction: column; gap: 8px; }
+  .po-field > label {
+    font-size: 10.5px; color: var(--text-tertiary); font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  .po-field input[type="number"], .po-field input[type="text"] {
+    padding: 14px 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(0,0,0,0.28);
+    color: var(--text-primary);
+    border-radius: 12px; font-family: inherit;
+    font-size: 22px; font-weight: 700; text-align: center;
+    font-variant-numeric: tabular-nums;
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+  .po-field input[type="number"]::-webkit-outer-spin-button,
+  .po-field input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none; appearance: none; margin: 0;
+  }
+  .po-field input:focus {
+    outline: none; border-color: rgba(255,255,255,0.40);
+    box-shadow: 0 0 0 3px rgba(255,255,255,0.06);
+  }
+  .po-weight-row {
+    display: grid; grid-template-columns: auto 1fr auto; gap: 6px; align-items: stretch;
+  }
+  .po-w-btn {
+    padding: 0 16px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.04);
+    color: var(--text-primary);
+    border-radius: 12px; font-family: inherit;
+    font-size: 20px; font-weight: 700; cursor: pointer;
+    min-width: 48px;
+  }
+  .po-w-btn:hover { background: rgba(255,255,255,0.10); }
+  .po-w-btn:active { transform: scale(0.94); }
+  .po-reps-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(48px, 1fr));
+    gap: 6px;
+    width: 100%;
+  }
+  .po-reps-pill {
+    padding: 12px 0; border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(0,0,0,0.28); color: var(--text-secondary);
+    border-radius: 8px; cursor: pointer;
+    font-family: inherit; font-size: 13px; font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .po-reps-pill:hover { background: rgba(255,255,255,0.06); color: var(--text-primary); }
+  .po-reps-pill.is-active {
+    background: linear-gradient(180deg, #FFFFFF 0%, #E8E5DD 100%);
+    color: #0A0A0B; border-color: transparent; font-weight: 800;
+  }
+
+  .po-btn-primary {
+    width: 100%; padding: 14px;
+    border: 1px solid rgba(255,255,255,0.85);
+    background: linear-gradient(180deg, #FFFFFF 0%, #E8E5DD 100%);
+    color: #0A0A0B; border-radius: 12px;
+    font-family: inherit; font-size: 14px; font-weight: 700;
+    cursor: pointer;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.55), 0 4px 14px rgba(0,0,0,0.40);
+    transition: transform 0.18s ease;
+  }
+  .po-btn-primary:hover { transform: translateY(-1px); }
+  .po-btn-primary:active { transform: translateY(0) scale(0.98); }
+  .po-btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  .po-btn-secondary {
+    padding: 12px 18px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.04);
+    color: var(--text-primary); border-radius: 12px;
+    font-family: inherit; font-size: 13px; font-weight: 600;
+    cursor: pointer;
+  }
+  .po-btn-secondary:hover { background: rgba(255,255,255,0.10); }
+
+  .po-rx-card {
+    padding: 18px 20px; border-radius: 14px;
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .po-rx-card.po-rx-up {
+    background: linear-gradient(180deg, rgba(107,227,164,0.08), rgba(255,255,255,0.025));
+    border-color: rgba(107,227,164,0.18);
+  }
+  .po-rx-card.po-rx-down {
+    background: linear-gradient(180deg, rgba(255,107,107,0.08), rgba(255,255,255,0.025));
+    border-color: rgba(255,107,107,0.18);
+  }
+  .po-rx-label {
+    font-size: 10.5px; color: var(--text-tertiary); font-weight: 700;
+    letter-spacing: 0.10em; text-transform: uppercase; margin-bottom: 6px;
+  }
+  .po-rx-headline {
+    font-size: 26px; font-weight: 700; letter-spacing: -0.01em;
+    line-height: 1.2; margin-bottom: 10px;
+    color: var(--text-primary);
+  }
+  .po-accent { color: var(--text-primary); }
+  .po-rx-tag {
+    display: inline-block; padding: 4px 10px; border-radius: 999px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(255,255,255,0.06); color: var(--text-secondary);
+    margin-bottom: 10px;
+  }
+  .po-rx-tag.up   { background: rgba(107,227,164,0.14); color: var(--success); }
+  .po-rx-tag.down { background: rgba(255,107,107,0.14); color: var(--danger); }
+  .po-rx-tag.hold { background: rgba(242,192,99,0.14); color: var(--warning); }
+  .po-rx-reason {
+    margin: 0; font-size: 13px; line-height: 1.5; color: var(--text-secondary);
+  }
+  .po-rx-empty {
+    font-size: 13px; color: var(--text-tertiary); padding: 16px 0; text-align: center;
+  }
+
+  .po-stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .po-stat-box {
+    padding: 14px 12px;
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px; text-align: center;
+  }
+  .po-stat-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.10em;
+    text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 6px;
+  }
+  .po-stat-val {
+    font-size: 22px; font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-primary);
+  }
+  .po-unit { font-size: 11px; color: var(--text-tertiary); font-weight: 500; margin-left: 2px; }
+
+  .po-spark-wrap { position: relative; }
+  .po-spark-svg { width: 100%; height: 60px; display: block; }
+  .po-spark-line { fill: none; stroke: var(--text-primary); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .po-spark-fill { fill: url(#poSparkGrad); }
+  .po-spark-empty {
+    text-align: center; font-size: 11px; color: var(--text-tertiary);
+    padding: 18px 0;
+  }
+
+  .po-hist-empty {
+    padding: 14px 0; text-align: center; font-size: 12px; color: var(--text-tertiary);
+    font-style: italic;
+  }
+  .po-hist-row {
+    display: grid; grid-template-columns: 60px 1fr auto; gap: 12px;
+    padding: 10px 4px; align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .po-hist-row:last-child { border-bottom: none; }
+  .po-hist-date { font-size: 11px; color: var(--text-tertiary); font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+  .po-hist-set { font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--text-primary); }
+  .po-hist-del {
+    background: transparent; border: none; color: var(--text-tertiary);
+    font-size: 16px; cursor: pointer; padding: 4px 8px;
+  }
+  .po-hist-del:hover { color: var(--danger); }
+
+  .po-modal-bg {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.65); backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 200; align-items: center; justify-content: center;
+    padding: 24px;
+  }
+  .po-modal-bg.is-show { display: flex; }
+  .po-modal {
+    width: 100%; max-width: 420px;
+    background: rgba(20, 20, 22, 0.98);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 16px;
+    padding: 22px; max-height: 88vh; overflow-y: auto;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+  .po-modal h3 {
+    margin: 0 0 16px; font-size: 17px; font-weight: 700;
+    color: var(--text-primary);
+  }
+  .po-modal .po-field { margin-bottom: 12px; }
+  .po-modal-seg {
+    display: flex; gap: 4px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px; padding: 3px;
+    flex-wrap: wrap;
+  }
+  .po-modal-seg button {
+    flex: 1 1 auto; padding: 9px 12px; border: none; background: transparent;
+    color: var(--text-tertiary); border-radius: 7px;
+    font-family: inherit; font-size: 12px; font-weight: 600;
+    cursor: pointer;
+  }
+  .po-modal-seg button.is-active {
+    background: linear-gradient(180deg, #FFFFFF 0%, #E8E5DD 100%);
+    color: #0A0A0B;
+  }
+  .po-bw-toggle {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 0; font-size: 13px; color: var(--text-secondary);
+    cursor: pointer;
+  }
+  .po-modal-actions {
+    display: flex; gap: 8px; margin-top: 18px;
+  }
+  .po-modal-actions button { flex: 1; }
+  .po-delete-link {
+    display: block; text-align: center; margin-top: 12px;
+    font-size: 12px; color: var(--danger); cursor: pointer;
+    text-decoration: underline; padding: 6px;
+  }
+
   /* ===== Body + Sleep shared form ===== */
   .metric-form {
     display: grid;
@@ -2188,6 +2529,24 @@
     .ex-field-input.is-weight { width: 70px; }
     .anatomy-col { flex: 0 1 160px; max-width: 160px; }
     .stat-value { font-size: 20px; }
+    .po-coach-card { padding: 16px; }
+    .po-seg-row { gap: 8px; }
+    .po-seg-control { padding: 3px; gap: 2px; }
+    .po-seg-btn { padding: 9px 6px; font-size: 12px; }
+    .po-exercise-bar { gap: 6px; }
+    .po-ex-select { padding: 11px 10px; padding-right: 30px; font-size: 13px; }
+    .po-btn-icon { width: 38px; height: 38px; min-width: 38px; }
+    .po-log-grid { grid-template-columns: 1fr; gap: 14px; }
+    .po-reps-row { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 5px; }
+    .po-reps-pill { padding: 14px 0; font-size: 14px; }
+    .po-w-btn { min-width: 44px; padding: 0 10px; font-size: 18px; }
+    .po-stats-row { gap: 6px; }
+    .po-stat-box { padding: 12px 8px; }
+    .po-stat-val { font-size: 18px; }
+    .po-stat-label { font-size: 9.5px; }
+    .po-rx-headline { font-size: 22px; }
+    .po-modal-bg { padding: 16px; }
+    .po-modal { padding: 18px; max-height: 86vh; max-width: calc(100vw - 32px); }
     .habit-day-dot { width: 10px; height: 10px; }
     .habit-week { gap: 3px; }
     .habit-emoji-input, .habit-name-input { flex: 1 1 100%; }
@@ -2454,26 +2813,109 @@
 
   <h1 class="dash-title">Gym</h1>
 
-  <!-- Day-of-week tabs -->
-  <div class="day-tabs" id="dayTabs" role="tablist" aria-label="Day of the week"></div>
-
-  <!-- Selected day's split -->
+  <!-- Coach card: filters, exercise picker, log form, prescription, stats, sparkline, history -->
   <div class="section">
-    <div class="section-title" id="daySectionTitle">Split</div>
-    <div class="gm-card" id="dayCard">
-      <div class="day-title-row">
-        <input id="dayTitleInput" class="day-title-input" type="text" placeholder="Name this day… (e.g. Push, Pull, Rest)" />
-        <span class="day-title-sub" id="dayTitleSub">Mon</span>
+    <div class="section-title">Coach</div>
+    <div class="po-coach-card">
+
+      <!-- Filters -->
+      <div class="po-filters">
+        <div class="po-seg-row">
+          <span class="po-seg-label">Gym</span>
+          <div class="po-seg-control" id="poGymSeg"></div>
+        </div>
+        <div class="po-seg-row">
+          <span class="po-seg-label">Day</span>
+          <div class="po-seg-control" id="poDaySeg"></div>
+        </div>
       </div>
 
-      <ul id="exList" class="ex-list"></ul>
-      <div id="exEmpty" class="ex-empty">No exercises yet — add one below.</div>
-
-      <div class="ex-add-row">
-        <input id="exNameInput" class="goal-input" type="text" placeholder="Exercise name (e.g. Bench Press)…" />
-        <select id="exMuscleSelect" class="supp-select" title="Primary muscle"></select>
-        <button id="exAddBtn" class="goal-add-btn">+ Add</button>
+      <!-- Exercise picker -->
+      <div class="po-sub-section">
+        <div class="po-sub-title">Exercise</div>
+        <div class="po-exercise-bar">
+          <select class="po-ex-select" id="poExSelect"></select>
+          <button class="po-btn-icon" id="poAddExBtn" title="Add exercise" aria-label="Add exercise">+</button>
+          <button class="po-btn-icon" id="poEditExBtn" title="Edit / delete" aria-label="Edit exercise">✎</button>
+        </div>
+        <div class="po-no-ex" id="poNoExMsg" style="display:none">No exercises here yet. Tap <strong>+</strong> to add one.</div>
       </div>
+
+      <!-- Log set -->
+      <div class="po-sub-section">
+        <div class="po-sub-title">Log today's top set</div>
+        <div class="po-bw-banner" id="poBwBanner">Bodyweight — log reps only</div>
+        <div class="po-last-set" id="poLastSet">
+          <span class="po-last-label">Last time</span>
+          <span class="po-last-value" id="poLastSetValue"></span>
+          <span class="po-last-meta" id="poLastSetMeta"></span>
+        </div>
+        <div class="po-log-grid" id="poLogGrid">
+          <div class="po-field" id="poWeightField">
+            <label id="poWeightLabel">Weight (lbs)</label>
+            <div class="po-weight-row">
+              <button class="po-w-btn" id="poWeightDownBtn" type="button">−</button>
+              <input type="number" id="poWeightInput" step="0.5" inputmode="decimal" placeholder="0" />
+              <button class="po-w-btn" id="poWeightUpBtn" type="button">+</button>
+            </div>
+          </div>
+          <div class="po-field">
+            <label>Reps</label>
+            <div class="po-reps-row" id="poRepsRow" data-value="8"></div>
+          </div>
+        </div>
+        <button class="po-btn-primary" id="poLogBtn">Log set</button>
+      </div>
+
+      <!-- Prescription -->
+      <div class="po-sub-section">
+        <div class="po-sub-title">Next session</div>
+        <div id="poRxWrap"></div>
+      </div>
+
+      <!-- Stats -->
+      <div class="po-sub-section">
+        <div class="po-sub-title">Stats</div>
+        <div class="po-stats-row">
+          <div class="po-stat-box">
+            <div class="po-stat-label" id="poOneRmLabel">Est. 1RM</div>
+            <div class="po-stat-val" id="poOneRm">—<span class="po-unit" id="poOneRmUnit">lbs</span></div>
+          </div>
+          <div class="po-stat-box">
+            <div class="po-stat-label">Best set</div>
+            <div class="po-stat-val" id="poBestSet">—</div>
+          </div>
+          <div class="po-stat-box">
+            <div class="po-stat-label">Sessions</div>
+            <div class="po-stat-val" id="poSessionCount">—</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trend sparkline -->
+      <div class="po-sub-section">
+        <div class="po-sub-title">Trend (last 10 sessions)</div>
+        <div class="po-spark-wrap">
+          <svg class="po-spark-svg" id="poSparkline" viewBox="0 0 300 60" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="poSparkGrad" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0%" stop-color="rgba(255,255,255,0.18)" />
+                <stop offset="100%" stop-color="rgba(255,255,255,0)" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="po-spark-empty" id="poSparkEmpty">Need 2+ sessions for trend</div>
+        </div>
+      </div>
+
+      <!-- History -->
+      <div class="po-sub-section">
+        <div class="po-sub-title">History</div>
+        <div id="poHistoryCard">
+          <div class="po-hist-empty">No logs yet.</div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -2954,6 +3396,56 @@
   </div>
 
   </main>
+
+  <!-- Add / Edit Exercise Modal -->
+  <div class="po-modal-bg" id="poExModalBg">
+    <div class="po-modal">
+      <h3 id="poExModalTitle">Add exercise</h3>
+      <div class="po-field">
+        <label style="font-size:11px;color:var(--text-tertiary);font-weight:700;letter-spacing:0.04em;text-transform:uppercase">Name</label>
+        <input type="text" id="poExName" placeholder="e.g. Incline DB press" />
+      </div>
+      <div class="po-field">
+        <label style="font-size:11px;color:var(--text-tertiary);font-weight:700;letter-spacing:0.04em;text-transform:uppercase">Gym</label>
+        <div class="po-modal-seg" id="poExGymSeg"></div>
+      </div>
+      <div class="po-field">
+        <label style="font-size:11px;color:var(--text-tertiary);font-weight:700;letter-spacing:0.04em;text-transform:uppercase">Day</label>
+        <div class="po-modal-seg" id="poExDaySeg"></div>
+      </div>
+      <div class="po-field">
+        <label style="font-size:11px;color:var(--text-tertiary);font-weight:700;letter-spacing:0.04em;text-transform:uppercase">Primary muscle</label>
+        <select id="poExMuscle" class="po-ex-select"></select>
+      </div>
+      <label class="po-bw-toggle">
+        <input type="checkbox" id="poExBw" />
+        Bodyweight (track reps only, no weight)
+      </label>
+      <div class="po-field" id="poExStartWeightField">
+        <label style="font-size:11px;color:var(--text-tertiary);font-weight:700;letter-spacing:0.04em;text-transform:uppercase">Starting weight</label>
+        <input type="number" id="poExStartWeight" step="0.5" placeholder="20" value="20" />
+      </div>
+      <div class="po-log-grid" id="poExNumFields">
+        <div class="po-field">
+          <label style="font-size:11px;color:var(--text-tertiary);font-weight:700;letter-spacing:0.04em;text-transform:uppercase">Reps min</label>
+          <input type="number" id="poExRepMin" value="6" />
+        </div>
+        <div class="po-field">
+          <label style="font-size:11px;color:var(--text-tertiary);font-weight:700;letter-spacing:0.04em;text-transform:uppercase">Reps max</label>
+          <input type="number" id="poExRepMax" value="8" />
+        </div>
+      </div>
+      <div class="po-field" id="poExStepField">
+        <label style="font-size:11px;color:var(--text-tertiary);font-weight:700;letter-spacing:0.04em;text-transform:uppercase">Increment</label>
+        <input type="number" id="poExStep" step="0.5" value="2.5" />
+      </div>
+      <div class="po-modal-actions">
+        <button class="po-btn-secondary" id="poExModalCancel">Cancel</button>
+        <button class="po-btn-primary" id="poExModalSave">Save</button>
+      </div>
+      <span class="po-delete-link" id="poExDelete" style="display:none">Delete this exercise</span>
+    </div>
+  </div>
 
   <!-- Photo modal -->
   <div class="photo-modal" id="photoModal" role="dialog" aria-modal="true">
@@ -3885,17 +4377,10 @@
   renderSupplements();
   setInterval(renderSupplements, 5 * 60 * 1000);
 
-  // ---------------- Gym ----------------
-  const DAYS = [
-    { id: 'mon', short: 'Mon', full: 'Monday',    jsDay: 1 },
-    { id: 'tue', short: 'Tue', full: 'Tuesday',   jsDay: 2 },
-    { id: 'wed', short: 'Wed', full: 'Wednesday', jsDay: 3 },
-    { id: 'thu', short: 'Thu', full: 'Thursday',  jsDay: 4 },
-    { id: 'fri', short: 'Fri', full: 'Friday',    jsDay: 5 },
-    { id: 'sat', short: 'Sat', full: 'Saturday',  jsDay: 6 },
-    { id: 'sun', short: 'Sun', full: 'Sunday',    jsDay: 0 }
-  ];
-
+  // ---------------- Gym v2 — Coach core ----------------
+  // Single state blob, persisted under gym_v2_state. Old gym data
+  // (gym_splits_v1, gym_log:*) is intentionally left orphaned in
+  // localStorage so users can recover it manually if needed.
   const MUSCLES = [
     { id: 'chest',      label: 'Chest' },
     { id: 'back',       label: 'Back' },
@@ -3910,21 +4395,14 @@
     { id: 'calves',     label: 'Calves' }
   ];
 
-  function muscleLabel(id) {
-    const m = MUSCLES.find(function (x) { return x.id === id; });
-    return m ? m.label : id;
-  }
+  const GYM_LS_KEY = 'gym_v2_state';
+  const GYM_UPGRADE_REPS = 8;
 
   function gymUid() {
-    return 'ex_' + Math.random().toString(36).slice(2, 9) + Date.now().toString(36);
+    return 'ex_' + Date.now() + '_' + Math.floor(Math.random() * 9999);
   }
 
-  function todayJsDayId() {
-    const m = DAYS.find(function (d) { return d.jsDay === new Date().getDay(); });
-    return m ? m.id : 'mon';
-  }
-
-  // Week start (Monday) -> YMD list of days from Mon to Sun
+  // Week start (Monday) and week dates — used by anatomy heatmap and home summary
   function getWeekStart() {
     const now = new Date();
     const d = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -3943,25 +4421,518 @@
     }
     return out;
   }
-  function weekKey() {
-    // ISO-ish: Year-Wnn (we just use Monday's YMD as the week key for simplicity)
-    return 'wk:' + toYMD(getWeekStart());
+
+  function gymBuildDefaultExercises() {
+    return [
+      { id: gymUid(), name: 'Bench press',       gym: 'comm', day: 'push', muscle: 'chest',      repMin: 5, repMax: 8,  step: 5,   startWeight: 135 },
+      { id: gymUid(), name: 'Overhead press',    gym: 'comm', day: 'push', muscle: 'shoulders',  repMin: 5, repMax: 8,  step: 5,   startWeight: 75 },
+      { id: gymUid(), name: 'Tricep pushdown',   gym: 'comm', day: 'push', muscle: 'triceps',    repMin: 8, repMax: 12, step: 5,   startWeight: 50 },
+      { id: gymUid(), name: 'Pull-ups',          gym: 'both', day: 'pull', muscle: 'back',       repMin: 5, repMax: 10, step: 1,   startWeight: 0, bw: true },
+      { id: gymUid(), name: 'Barbell row',       gym: 'comm', day: 'pull', muscle: 'back',       repMin: 6, repMax: 10, step: 5,   startWeight: 115 },
+      { id: gymUid(), name: 'Bicep curl',        gym: 'comm', day: 'pull', muscle: 'biceps',     repMin: 8, repMax: 12, step: 2.5, startWeight: 30 },
+      { id: gymUid(), name: 'Back squat',        gym: 'comm', day: 'legs', muscle: 'quads',      repMin: 5, repMax: 8,  step: 10,  startWeight: 185 },
+      { id: gymUid(), name: 'Romanian deadlift', gym: 'comm', day: 'legs', muscle: 'hamstrings', repMin: 6, repMax: 10, step: 10,  startWeight: 135 },
+      { id: gymUid(), name: 'Leg press',         gym: 'comm', day: 'legs', muscle: 'quads',      repMin: 8, repMax: 12, step: 10,  startWeight: 225 }
+    ];
   }
 
-  // Storage
-  function getGymSplits() { return storeGet('gym_splits_v1') || {}; }
-  function setGymSplits(o) { storeSet('gym_splits_v1', o); }
-  function getDayPlan(dayId) {
-    const splits = getGymSplits();
-    return splits[dayId] || { title: '', exercises: [] };
+  function gymNormalizeState(s) {
+    s = s || {};
+    s.units = s.units || 'lbs';
+    s.gyms = (Array.isArray(s.gyms) && s.gyms.length) ? s.gyms
+           : [{ id: 'home', name: 'Home Gym' }, { id: 'comm', name: 'Commercial Gym' }];
+    s.splitDays = (Array.isArray(s.splitDays) && s.splitDays.length) ? s.splitDays
+                : [{ id: 'push', name: 'Push' }, { id: 'pull', name: 'Pull' }, { id: 'legs', name: 'Legs' }];
+    s.exercises = Array.isArray(s.exercises) ? s.exercises : gymBuildDefaultExercises();
+    s.logs = (s.logs && typeof s.logs === 'object') ? s.logs : {};
+    s.filterGym = s.filterGym || s.gyms[0].id;
+    s.filterDay = s.filterDay || s.splitDays[0].id;
+    s.currentEx = s.currentEx || null;
+    return s;
   }
-  function setDayPlan(dayId, plan) {
-    const splits = getGymSplits();
-    splits[dayId] = plan;
-    setGymSplits(splits);
+
+  function gymLoadState() {
+    try {
+      const raw = localStorage.getItem(GYM_LS_KEY);
+      if (raw) return gymNormalizeState(JSON.parse(raw));
+    } catch (e) {}
+    return gymNormalizeState({});
   }
-  function getGymLog(ymd) { return storeGet('gym_log:' + ymd) || []; }
-  function setGymLog(ymd, arr) { storeSet('gym_log:' + ymd, arr); }
+
+  function gymSaveState() {
+    try { localStorage.setItem(GYM_LS_KEY, JSON.stringify(gymS)); } catch (e) {}
+  }
+
+  let gymS = gymLoadState();
+
+  function gymUnit() { return gymS.units; }
+  function gymEstimate1RM(w, r) { if (r < 2) return w; return w * (1 + r / 30); }
+  function gymRoundToStep(v, s) { return Math.round(v / s) * s; }
+  function gymGetFiltered() {
+    return gymS.exercises.filter(function (e) {
+      return (e.gym === gymS.filterGym || e.gym === 'both') && e.day === gymS.filterDay;
+    });
+  }
+  function gymGetCurrentEx() {
+    const f = gymGetFiltered();
+    if (!f.length) return null;
+    let ex = f.find(function (e) { return e.id === gymS.currentEx; });
+    if (!ex) { ex = f[0]; gymS.currentEx = ex.id; gymSaveState(); }
+    return ex;
+  }
+  function gymGetLogs() {
+    return gymS.currentEx ? (gymS.logs[gymS.currentEx] || []).slice() : [];
+  }
+
+  function gymEsc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+
+  // Compat layer so renderAnatomy/renderHomeSummary keep working — these
+  // now read from the new gymS.logs structure but expose the old shape.
+  function getGymLog(ymd) {
+    const out = [];
+    Object.keys(gymS.logs || {}).forEach(function (exId) {
+      (gymS.logs[exId] || []).forEach(function (l) {
+        if (l.date && l.date.slice(0, 10) === ymd) {
+          const ex = gymS.exercises.find(function (x) { return x.id === exId; });
+          out.push({
+            exerciseId: exId,
+            name: ex ? ex.name : '',
+            muscle: ex ? ex.muscle : null,
+            weight: l.weight,
+            sets: 1,
+            reps: l.reps,
+            ts: new Date(l.date).getTime()
+          });
+        }
+      });
+    });
+    return out;
+  }
+
+  // Prescription engine
+  function gymGetRx(ex, logs) {
+    if (!logs.length) return null;
+    const last = logs[logs.length - 1];
+    const weight = last.weight, reps = last.reps;
+    const repMin = ex.repMin, repMax = ex.repMax, step = ex.step;
+    const upgradeAt = Math.min(GYM_UPGRADE_REPS, repMax);
+    let stuck = 0;
+    for (let i = logs.length - 1; i >= 0; i--) {
+      if (logs[i].weight === weight) stuck++; else break;
+    }
+    const u = gymUnit();
+    if (ex.bw) {
+      if (reps >= upgradeAt) return { type: 'up', weight: 0, reps: reps + 1, tag: 'Push for more', reason: reps + ' reps — strong. Push for ' + (reps + 1) + ' next time.', bw: true };
+      if (reps >= repMin) return { type: 'hold', weight: 0, reps: reps + 1, tag: 'Add a rep', reason: reps + ' reps. Push for ' + (reps + 1) + ' next session.', bw: true };
+      return { type: 'hold', weight: 0, reps: repMin, tag: 'Repeat', reason: reps + ' reps fell short. Repeat until you hit ' + repMin + '+.', bw: true };
+    }
+    if (stuck >= 3 && reps < repMin) {
+      const dl = gymRoundToStep(weight * 0.9, step);
+      return { type: 'down', weight: dl, reps: repMax, tag: 'Deload', reason: 'Stuck at ' + weight + u + ' for ' + stuck + ' sessions. Drop 10%, reset, build back cleaner.' };
+    }
+    if (reps >= upgradeAt) return { type: 'up', weight: weight + step, reps: repMin, tag: 'Add weight', reason: 'You hit ' + reps + ' reps — time to add ' + step + u + '. Expect ' + repMin + '-' + (repMin + 1) + ' next session.' };
+    if (reps >= repMin && reps < upgradeAt) return { type: 'hold', weight: weight, reps: reps + 1, tag: 'Add a rep', reason: reps + ' reps in target. Stay at ' + weight + u + ', push for ' + (reps + 1) + '.' };
+    return { type: 'hold', weight: weight, reps: repMin, tag: 'Repeat', reason: reps + ' reps short of ' + repMin + '-' + upgradeAt + '. Repeat ' + weight + u + ' until you hit ' + repMin + '+ clean.' };
+  }
+
+  // ---- Coach render ----
+  function renderPoFilters() {
+    const gSeg = document.getElementById('poGymSeg');
+    const dSeg = document.getElementById('poDaySeg');
+    if (!gSeg || !dSeg) return;
+    gSeg.innerHTML = gymS.gyms.map(function (g) {
+      return '<button class="po-seg-btn ' + (g.id === gymS.filterGym ? 'is-active' : '') + '" data-gym="' + g.id + '">' + gymEsc(g.name) + '</button>';
+    }).join('');
+    dSeg.innerHTML = gymS.splitDays.map(function (d) {
+      return '<button class="po-seg-btn ' + (d.id === gymS.filterDay ? 'is-active' : '') + '" data-day="' + d.id + '">' + gymEsc(d.name) + '</button>';
+    }).join('');
+    gSeg.querySelectorAll('.po-seg-btn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        gymS.filterGym = b.dataset.gym; gymS.currentEx = null; gymSaveState(); renderPoAll();
+      });
+    });
+    dSeg.querySelectorAll('.po-seg-btn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        gymS.filterDay = b.dataset.day; gymS.currentEx = null; gymSaveState(); renderPoAll();
+      });
+    });
+  }
+
+  function renderPoSelect() {
+    const sel = document.getElementById('poExSelect');
+    const noMsg = document.getElementById('poNoExMsg');
+    const editBtn = document.getElementById('poEditExBtn');
+    const logBtn = document.getElementById('poLogBtn');
+    if (!sel) return;
+    const f = gymGetFiltered();
+    if (!f.length) {
+      sel.innerHTML = '<option>—</option>';
+      sel.disabled = true; editBtn.disabled = true; logBtn.disabled = true;
+      noMsg.style.display = 'block';
+      gymS.currentEx = null;
+      return;
+    }
+    sel.disabled = false; editBtn.disabled = false; logBtn.disabled = false;
+    noMsg.style.display = 'none';
+    if (!f.find(function (e) { return e.id === gymS.currentEx; })) gymS.currentEx = f[0].id;
+    const u = gymUnit();
+    sel.innerHTML = f.map(function (e) {
+      const wLbl = e.bw ? ' · BW' : (e.startWeight ? ' · ' + e.startWeight + u : '');
+      return '<option value="' + e.id + '"' + (e.id === gymS.currentEx ? ' selected' : '') + '>' + gymEsc(e.name) + wLbl + '</option>';
+    }).join('');
+  }
+
+  function renderPoForm() {
+    const ex = gymGetCurrentEx();
+    const banner = document.getElementById('poBwBanner');
+    const wField = document.getElementById('poWeightField');
+    const oneRmLbl = document.getElementById('poOneRmLabel');
+    const grid = document.getElementById('poLogGrid');
+    if (!grid) return;
+    document.getElementById('poWeightLabel').textContent = 'Weight (' + gymUnit() + ')';
+    document.getElementById('poOneRmUnit').textContent = gymUnit();
+    if (ex && ex.bw) {
+      banner.classList.add('is-show');
+      wField.style.display = 'none';
+      grid.classList.add('is-bw-mode');
+      oneRmLbl.textContent = 'Best reps';
+    } else {
+      banner.classList.remove('is-show');
+      wField.style.display = '';
+      grid.classList.remove('is-bw-mode');
+      oneRmLbl.textContent = 'Est. 1RM';
+    }
+  }
+
+  function renderPoLastSet() {
+    const wrap = document.getElementById('poLastSet');
+    if (!wrap) return;
+    const ex = gymGetCurrentEx();
+    const logs = ex ? gymGetLogs() : [];
+    if (!ex || !logs.length) { wrap.classList.remove('is-show'); return; }
+    const last = logs[logs.length - 1];
+    const setStr = ex.bw ? (last.reps + ' reps') : (last.weight + gymUnit() + ' × ' + last.reps);
+    const d = new Date(last.date);
+    const da = Math.floor((Date.now() - d.getTime()) / 86400000);
+    const ago = da === 0 ? 'today' : da === 1 ? 'yesterday' : da + ' days ago';
+    document.getElementById('poLastSetValue').textContent = setStr;
+    document.getElementById('poLastSetMeta').textContent = ago;
+    wrap.classList.add('is-show');
+  }
+
+  function renderPoRepsRow() {
+    const row = document.getElementById('poRepsRow');
+    if (!row) return;
+    const ex = gymGetCurrentEx();
+    let repMin, repMax;
+    if (ex) {
+      repMin = Math.max(1, parseInt(ex.repMin, 10) || 1);
+      repMax = Math.max(repMin, parseInt(ex.repMax, 10) || repMin);
+    } else { repMin = 4; repMax = 12; }
+    const upper = Math.max(repMax + 2, repMin + 5);
+    const end = Math.min(upper, repMin + 15);
+    const prev = parseInt(row.dataset.value, 10);
+    const active = (prev >= repMin && prev <= end) ? prev : repMax;
+    let html = '';
+    for (let i = repMin; i <= end; i++) {
+      html += '<button type="button" class="po-reps-pill' + (i === active ? ' is-active' : '') + '" data-v="' + i + '">' + i + '</button>';
+    }
+    row.innerHTML = html;
+    row.dataset.value = String(active);
+  }
+
+  function renderPoRx() {
+    const wrap = document.getElementById('poRxWrap');
+    if (!wrap) return;
+    const ex = gymGetCurrentEx();
+    if (!ex) { wrap.innerHTML = '<div class="po-rx-empty">Pick a gym and day above.</div>'; return; }
+    const logs = gymGetLogs();
+    const rx = gymGetRx(ex, logs);
+    const u = gymUnit();
+    if (!rx) {
+      const sw = ex.startWeight, sr = ex.repMin;
+      const head = ex.bw
+        ? '<span class="po-accent">' + sr + '</span> reps'
+        : '<span class="po-accent">' + (sw || 0) + u + '</span> × ' + sr + ' reps';
+      const reason = ex.bw
+        ? 'Aim for ' + ex.repMin + '-' + ex.repMax + ' clean reps. Once you hit ' + ex.repMax + '+, push for more.'
+        : 'Hit ' + ex.repMin + '-' + ex.repMax + ' reps. Once logged, the coach will start prescribing.';
+      wrap.innerHTML = '<div class="po-rx-card"><div class="po-rx-label">' + gymEsc(ex.name) + ' · starting point</div><div class="po-rx-headline">' + head + '</div><span class="po-rx-tag hold">Start here</span><p class="po-rx-reason">' + reason + '</p></div>';
+      return;
+    }
+    const head = rx.bw
+      ? '<span class="po-accent">' + rx.reps + '</span> reps'
+      : '<span class="po-accent">' + rx.weight + u + '</span> × ' + rx.reps + ' reps';
+    wrap.innerHTML = '<div class="po-rx-card po-rx-' + rx.type + '"><div class="po-rx-label">' + gymEsc(ex.name) + '</div><div class="po-rx-headline">' + head + '</div><span class="po-rx-tag ' + rx.type + '">' + rx.tag + '</span><p class="po-rx-reason">' + rx.reason + '</p></div>';
+  }
+
+  function renderPoStats() {
+    const oneEl = document.getElementById('poOneRm');
+    if (!oneEl) return;
+    const ex = gymGetCurrentEx();
+    const logs = ex ? gymGetLogs() : [];
+    const u = gymUnit();
+    if (!logs.length) {
+      oneEl.innerHTML = '—<span class="po-unit">' + u + '</span>';
+      document.getElementById('poBestSet').textContent = '—';
+      document.getElementById('poSessionCount').textContent = '—';
+      return;
+    }
+    if (ex.bw) {
+      const br = Math.max.apply(null, logs.map(function (l) { return l.reps; }));
+      oneEl.innerHTML = br + '<span class="po-unit">reps</span>';
+    } else {
+      const orm = Math.max.apply(null, logs.map(function (l) { return gymEstimate1RM(l.weight, l.reps); }));
+      oneEl.innerHTML = Math.round(orm) + '<span class="po-unit">' + u + '</span>';
+    }
+    let best = logs[0];
+    logs.forEach(function (l) {
+      const cur = ex.bw ? l.reps : gymEstimate1RM(l.weight, l.reps);
+      const bestVal = ex.bw ? best.reps : gymEstimate1RM(best.weight, best.reps);
+      if (cur > bestVal) best = l;
+    });
+    document.getElementById('poBestSet').textContent = ex.bw ? (best.reps + 'r') : (best.weight + '×' + best.reps);
+    document.getElementById('poSessionCount').textContent = logs.length;
+  }
+
+  function renderPoSparkline() {
+    const svg = document.getElementById('poSparkline');
+    const empty = document.getElementById('poSparkEmpty');
+    if (!svg) return;
+    const ex = gymGetCurrentEx();
+    const logs = ex ? gymGetLogs().slice(-10) : [];
+    if (logs.length < 2) { svg.style.display = 'none'; empty.style.display = 'block'; return; }
+    svg.style.display = 'block'; empty.style.display = 'none';
+    const vals = logs.map(function (l) { return ex.bw ? l.reps : gymEstimate1RM(l.weight, l.reps); });
+    const min = Math.min.apply(null, vals);
+    const max = Math.max.apply(null, vals);
+    const range = max - min || 1;
+    const W = 300, H = 60, pad = 4;
+    const pts = vals.map(function (v, i) {
+      const x = pad + (W - pad * 2) * (i / (vals.length - 1));
+      const y = H - pad - (H - pad * 2) * ((v - min) / range);
+      return [x, y];
+    });
+    const linePath = pts.map(function (p, i) { return (i === 0 ? 'M' : 'L') + p[0].toFixed(1) + ' ' + p[1].toFixed(1); }).join(' ');
+    const fillPath = linePath + ' L' + pts[pts.length - 1][0].toFixed(1) + ' ' + H + ' L' + pts[0][0].toFixed(1) + ' ' + H + ' Z';
+    const defs = '<defs><linearGradient id="poSparkGrad" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="rgba(255,255,255,0.18)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></linearGradient></defs>';
+    svg.innerHTML = defs
+      + '<path class="po-spark-fill" d="' + fillPath + '"/>'
+      + '<path class="po-spark-line" d="' + linePath + '"/>';
+  }
+
+  function renderPoHistory() {
+    const wrap = document.getElementById('poHistoryCard');
+    if (!wrap) return;
+    const ex = gymGetCurrentEx();
+    const logs = ex ? gymGetLogs().slice().reverse() : [];
+    const u = gymUnit();
+    if (!logs.length) { wrap.innerHTML = '<div class="po-hist-empty">No logs yet.</div>'; return; }
+    wrap.innerHTML = logs.slice(0, 12).map(function (l, i) {
+      const d = new Date(l.date);
+      const dStr = (d.getMonth() + 1) + '/' + d.getDate();
+      const setStr = ex.bw ? (l.reps + ' reps') : (l.weight + u + ' × ' + l.reps);
+      const realIdx = logs.length - 1 - i;
+      return '<div class="po-hist-row">'
+        + '<div class="po-hist-date">' + dStr + '</div>'
+        + '<div class="po-hist-set">' + setStr + '</div>'
+        + '<button class="po-hist-del" data-idx="' + realIdx + '" aria-label="Delete">×</button>'
+        + '</div>';
+    }).join('');
+    wrap.querySelectorAll('.po-hist-del').forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (!confirm('Delete this log?')) return;
+        const realIdx = parseInt(b.dataset.idx, 10);
+        const arr = gymS.logs[gymS.currentEx] || [];
+        const origIdx = arr.length - 1 - realIdx;
+        arr.splice(origIdx, 1);
+        if (!arr.length) delete gymS.logs[gymS.currentEx];
+        else gymS.logs[gymS.currentEx] = arr;
+        gymSaveState(); renderPoAll();
+      });
+    });
+  }
+
+  function renderPoAll() {
+    renderPoFilters();
+    renderPoSelect();
+    renderPoForm();
+    renderPoLastSet();
+    renderPoRepsRow();
+    renderPoRx();
+    renderPoStats();
+    renderPoSparkline();
+    renderPoHistory();
+    const ex = gymGetCurrentEx();
+    const winp = document.getElementById('poWeightInput');
+    if (ex && !ex.bw && winp) {
+      const logs = gymGetLogs();
+      const w = logs.length ? logs[logs.length - 1].weight : (ex.startWeight || 0);
+      winp.value = w;
+    }
+    if (typeof renderAnatomy === 'function') renderAnatomy();
+    if (typeof renderHomeSummary === 'function') renderHomeSummary();
+  }
+
+  // ---- Add / Edit Exercise modal ----
+  let poEditingExId = null;
+  let poModalGym = null, poModalDay = null, poModalMuscle = null;
+
+  function renderPoModalSegs() {
+    document.getElementById('poExGymSeg').innerHTML = gymS.gyms.map(function (g) {
+      return '<button data-gym="' + g.id + '" class="' + (poModalGym === g.id ? 'is-active' : '') + '">' + gymEsc(g.name) + '</button>';
+    }).join('') + '<button data-gym="both" class="' + (poModalGym === 'both' ? 'is-active' : '') + '">Both</button>';
+    document.getElementById('poExDaySeg').innerHTML = gymS.splitDays.map(function (d) {
+      return '<button data-day="' + d.id + '" class="' + (poModalDay === d.id ? 'is-active' : '') + '">' + gymEsc(d.name) + '</button>';
+    }).join('');
+    document.querySelectorAll('#poExGymSeg button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        poModalGym = b.dataset.gym;
+        document.querySelectorAll('#poExGymSeg button').forEach(function (x) { x.classList.remove('is-active'); });
+        b.classList.add('is-active');
+      });
+    });
+    document.querySelectorAll('#poExDaySeg button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        poModalDay = b.dataset.day;
+        document.querySelectorAll('#poExDaySeg button').forEach(function (x) { x.classList.remove('is-active'); });
+        b.classList.add('is-active');
+      });
+    });
+    const sel = document.getElementById('poExMuscle');
+    sel.innerHTML = MUSCLES.map(function (m) {
+      return '<option value="' + m.id + '">' + m.label + '</option>';
+    }).join('');
+    sel.value = poModalMuscle || 'chest';
+  }
+
+  function poToggleBwFields() {
+    const isBw = document.getElementById('poExBw').checked;
+    document.getElementById('poExStartWeightField').style.display = isBw ? 'none' : '';
+    document.getElementById('poExStepField').style.display = isBw ? 'none' : '';
+  }
+
+  function poOpenExModal(mode, ex) {
+    poEditingExId = mode === 'edit' ? ex.id : null;
+    document.getElementById('poExModalTitle').textContent = mode === 'edit' ? 'Edit exercise' : 'Add exercise';
+    document.getElementById('poExDelete').style.display = mode === 'edit' ? 'block' : 'none';
+    if (mode === 'edit') {
+      document.getElementById('poExName').value = ex.name;
+      poModalGym = ex.gym; poModalDay = ex.day; poModalMuscle = ex.muscle || 'chest';
+      document.getElementById('poExBw').checked = !!ex.bw;
+      document.getElementById('poExStartWeight').value = ex.startWeight || 0;
+      document.getElementById('poExRepMin').value = ex.repMin;
+      document.getElementById('poExRepMax').value = ex.repMax;
+      document.getElementById('poExStep').value = ex.step;
+    } else {
+      document.getElementById('poExName').value = '';
+      poModalGym = gymS.filterGym; poModalDay = gymS.filterDay; poModalMuscle = 'chest';
+      document.getElementById('poExBw').checked = false;
+      document.getElementById('poExStartWeight').value = 20;
+      document.getElementById('poExRepMin').value = 6;
+      document.getElementById('poExRepMax').value = 8;
+      document.getElementById('poExStep').value = 2.5;
+    }
+    renderPoModalSegs();
+    poToggleBwFields();
+    document.getElementById('poExModalBg').classList.add('is-show');
+    setTimeout(function () { document.getElementById('poExName').focus(); }, 60);
+  }
+
+  function poWireGym() {
+    document.getElementById('poExBw').addEventListener('change', poToggleBwFields);
+    document.getElementById('poAddExBtn').addEventListener('click', function () { poOpenExModal('add'); });
+    document.getElementById('poEditExBtn').addEventListener('click', function () {
+      const ex = gymGetCurrentEx();
+      if (ex) poOpenExModal('edit', ex);
+    });
+    document.getElementById('poExModalCancel').addEventListener('click', function () {
+      document.getElementById('poExModalBg').classList.remove('is-show');
+    });
+    document.getElementById('poExModalSave').addEventListener('click', function () {
+      const name = document.getElementById('poExName').value.trim();
+      if (!name) { alert('Name is required.'); return; }
+      if (!poModalGym) { alert('Pick a gym.'); return; }
+      if (!poModalDay) { alert('Pick a day.'); return; }
+      const isBw = document.getElementById('poExBw').checked;
+      const repMin = parseInt(document.getElementById('poExRepMin').value, 10) || 6;
+      const repMax = parseInt(document.getElementById('poExRepMax').value, 10) || 8;
+      const muscleSel = document.getElementById('poExMuscle').value;
+      const data = {
+        name: name, gym: poModalGym, day: poModalDay,
+        muscle: muscleSel || 'chest',
+        bw: isBw,
+        startWeight: isBw ? 0 : (parseFloat(document.getElementById('poExStartWeight').value) || 0),
+        repMin: repMin, repMax: repMax,
+        step: isBw ? 1 : (parseFloat(document.getElementById('poExStep').value) || 2.5)
+      };
+      if (poEditingExId) {
+        const target = gymS.exercises.find(function (e) { return e.id === poEditingExId; });
+        if (target) Object.assign(target, data);
+      } else {
+        const ex = Object.assign({ id: gymUid() }, data);
+        gymS.exercises.push(ex);
+        gymS.currentEx = ex.id;
+        gymS.filterGym = (poModalGym === 'both') ? gymS.filterGym : poModalGym;
+        gymS.filterDay = poModalDay;
+      }
+      gymSaveState();
+      document.getElementById('poExModalBg').classList.remove('is-show');
+      renderPoAll();
+    });
+    document.getElementById('poExDelete').addEventListener('click', function () {
+      if (!poEditingExId) return;
+      if (!confirm('Delete this exercise and all its logs?')) return;
+      gymS.exercises = gymS.exercises.filter(function (e) { return e.id !== poEditingExId; });
+      delete gymS.logs[poEditingExId];
+      if (gymS.currentEx === poEditingExId) gymS.currentEx = null;
+      poEditingExId = null;
+      gymSaveState();
+      document.getElementById('poExModalBg').classList.remove('is-show');
+      renderPoAll();
+    });
+
+    // Coach form wiring
+    document.getElementById('poExSelect').addEventListener('change', function (e) {
+      gymS.currentEx = e.target.value; gymSaveState(); renderPoAll();
+    });
+    document.getElementById('poWeightDownBtn').addEventListener('click', function () {
+      const ex = gymGetCurrentEx(); if (!ex || ex.bw) return;
+      const winp = document.getElementById('poWeightInput');
+      const w = parseFloat(winp.value) || 0;
+      winp.value = Math.max(0, w - (ex.step || 2.5));
+    });
+    document.getElementById('poWeightUpBtn').addEventListener('click', function () {
+      const ex = gymGetCurrentEx(); if (!ex || ex.bw) return;
+      const winp = document.getElementById('poWeightInput');
+      const w = parseFloat(winp.value) || 0;
+      winp.value = w + (ex.step || 2.5);
+    });
+    document.getElementById('poRepsRow').addEventListener('click', function (e) {
+      const p = e.target.closest('.po-reps-pill');
+      if (!p) return;
+      const row = document.getElementById('poRepsRow');
+      row.querySelectorAll('.po-reps-pill').forEach(function (x) { x.classList.remove('is-active'); });
+      p.classList.add('is-active');
+      row.dataset.value = p.dataset.v;
+    });
+    document.getElementById('poLogBtn').addEventListener('click', function () {
+      const ex = gymGetCurrentEx();
+      if (!ex) return;
+      const reps = parseInt(document.getElementById('poRepsRow').dataset.value, 10) || 0;
+      if (reps <= 0) { alert('Pick a rep count.'); return; }
+      const w = ex.bw ? 0 : (parseFloat(document.getElementById('poWeightInput').value) || 0);
+      if (!ex.bw && w <= 0) { alert('Enter a weight.'); return; }
+      const arr = gymS.logs[ex.id] || [];
+      arr.push({ weight: w, reps: reps, date: new Date().toISOString() });
+      gymS.logs[ex.id] = arr;
+      gymSaveState(); renderPoAll();
+    });
+  }
 
   // ---- Day tabs ----
   function renderDayTabs() {
@@ -4614,20 +5585,9 @@
     });
   }
 
-  // ---- Gym state + boot ----
-  const gymState = {
-    selectedDay: (function () {
-      let saved = null;
-      try { saved = localStorage.getItem('gym_selected_day'); } catch (e) {}
-      if (saved && DAYS.some(function (d) { return d.id === saved; })) return saved;
-      return todayJsDayId();
-    })()
-  };
-
-  populateMuscleSelect();
-  renderDayTabs();
-  renderDayCard();
-  wireDayTitleAndAdd();
+  // ---- Gym v2 boot ----
+  poWireGym();
+  renderPoAll();
   renderAnatomy();
   renderStatsAndGraph();
   renderPhotos();
