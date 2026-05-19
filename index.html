@@ -2854,6 +2854,88 @@
     .metric-history-date { width: 64px; }
     .sleep-bar-bar { max-width: 22px; }
     .star-rating-btn { font-size: 20px; }
+
+    /* Gym page mobile polish — tuned for iPhone 13 Pro (390px) */
+    .po-day-pill { padding: 6px 10px; font-size: 10.5px; gap: 6px; margin-bottom: 12px; }
+
+    /* Weight tracker */
+    .wt-card { padding: 16px 14px 14px; }
+    .wt-num { font-size: 36px; }
+    .wt-unit { font-size: 13px; }
+    .wt-delta { font-size: 12px; margin-bottom: 12px; }
+    .wt-streak { font-size: 12px; margin-bottom: 12px; }
+    .wt-empty { padding: 22px 14px; font-size: 12px; }
+    .wt-chart { height: 110px; margin-left: 30px; width: calc(100% - 30px); }
+    .wt-chart-yaxis { width: 30px; }
+    .wt-meta { font-size: 10px; }
+    .wt-legend { gap: 14px; margin-top: 8px; }
+    .wt-legend-item { font-size: 9.5px; letter-spacing: 0.14em; }
+    .wt-locked { padding: 10px 12px; margin-top: 12px; }
+    .wt-locked-check { width: 26px; height: 26px; font-size: 13px; }
+    .wt-locked-label { font-size: 9px; letter-spacing: 0.12em; }
+    .wt-locked-value { font-size: 14px; }
+    .wt-edit-btn { font-size: 12px; padding: 6px 8px; }
+    .wt-input-row { margin-top: 12px; }
+    .wt-input-top { gap: 8px; }
+    .wt-input { font-size: 15px; padding: 10px 12px; }
+    .wt-save-btn { padding: 10px 14px; font-size: 12px; }
+
+    /* Coach sub-section + last-set + sparkline */
+    .po-sub-section { margin-top: 18px; }
+    .po-sub-title { font-size: 10px; letter-spacing: 0.12em; margin-bottom: 8px; }
+    .po-no-ex { padding: 14px; font-size: 12px; }
+    .po-last-set { gap: 8px; font-size: 11px; padding: 9px 12px; margin-bottom: 10px; }
+    .po-last-label { font-size: 9px; }
+    .po-last-meta { font-size: 10px; }
+    .po-rx-card { padding: 14px 16px; }
+    .po-rx-headline { font-size: 20px; line-height: 1.25; }
+    .po-rx-label { font-size: 9.5px; }
+    .po-rx-reason { font-size: 12px; line-height: 1.45; }
+    .po-rx-tag { font-size: 9px; padding: 3px 8px; }
+    .po-spark-svg { height: 50px; }
+    .po-hist-row { grid-template-columns: 50px 1fr auto; gap: 8px; padding: 9px 4px; }
+    .po-hist-date { font-size: 10.5px; }
+    .po-hist-set { font-size: 13px; }
+
+    /* Today's workout + past workouts */
+    .po-tw { padding: 14px; border-radius: 12px; }
+    .po-tw-head { flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+    .po-tw-eyebrow { font-size: 9px; letter-spacing: 0.12em; }
+    .po-tw-summary-num { font-size: 24px; }
+    .po-tw-summary-label { font-size: 11px; }
+    .po-tw-summary-vol { font-size: 11.5px; }
+    .po-tw-done-btn { padding: 10px 14px; font-size: 11px; min-height: 36px; }
+    .po-tw-row { padding: 9px 11px; font-size: 12px; gap: 8px; }
+    .po-tw-row-meta { font-size: 10.5px; }
+    .po-tw-empty { font-size: 11px; padding: 12px 0; }
+    .po-tw-past-toggle { padding: 10px 12px; font-size: 11px; margin-top: 8px; }
+    .po-tw-past-count { font-size: 10px; padding: 1px 6px; }
+    .po-tw-past-day { padding: 9px 11px; }
+    .po-tw-past-day-date { font-size: 10px; letter-spacing: 0.04em; }
+    .po-tw-past-day-summary { font-size: 11px; }
+    .po-tw-past-day-done { font-size: 8px; padding: 2px 6px; }
+    .po-tw-past-empty { font-size: 11px; padding: 12px; }
+
+    /* Rotation editor row — tighten to fit 6 controls on narrow phones */
+    .rot-row { padding: 6px 8px; gap: 4px; }
+    .rot-row input { font-size: 12px; padding: 3px 0; }
+    .rot-mini { padding: 4px 6px; font-size: 13px; }
+    .rot-today-tag { font-size: 7.5px; padding: 1px 5px; letter-spacing: 0.06em; }
+    .rot-today-btn { font-size: 8px; padding: 3px 6px; letter-spacing: 0.04em; }
+    .rot-row-num { font-size: 10px; width: 14px; }
+
+    /* Add/Edit modal — extra compact */
+    .po-modal-seg button { padding: 8px 10px; font-size: 11px; }
+    .po-bw-toggle { font-size: 12px; padding: 8px 0; }
+  }
+
+  /* Tiny phones (iPhone SE / mini, ~360px) */
+  @media (max-width: 360px) {
+    .wt-num { font-size: 30px; }
+    .po-tw-summary-num { font-size: 20px; }
+    .po-rx-headline { font-size: 18px; }
+    .po-stat-val { font-size: 16px; }
+    .po-reps-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
 </style>
 </head>
