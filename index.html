@@ -3505,41 +3505,6 @@
     </div>
   </div>
 
-  <!-- Stats + graph -->
-  <div class="section">
-    <div class="section-title">This week</div>
-    <div class="gm-card">
-      <div class="stat-grid">
-        <div class="stat-card">
-          <div class="stat-label">Total Weight</div>
-          <div class="stat-value" id="statTotalWeight">0</div>
-          <div class="stat-sub">sum of logged weight × sets · this week</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Volume</div>
-          <div class="stat-value" id="statVolume">0</div>
-          <div class="stat-sub">weight × sets × reps · this week</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Sessions</div>
-          <div class="stat-value" id="statSessions">0</div>
-          <div class="stat-sub">days logged this week</div>
-        </div>
-      </div>
-      <div class="graph-wrap">
-        <svg class="graph-svg" id="volumeGraph" viewBox="0 0 600 200" preserveAspectRatio="none" aria-hidden="true">
-          <defs>
-            <linearGradient id="graphGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#F2C063" stop-opacity="0.35" />
-              <stop offset="100%" stop-color="#F2C063" stop-opacity="0" />
-            </linearGradient>
-          </defs>
-        </svg>
-        <div id="graphEmpty" class="graph-empty">Log some workouts to see progress over time.</div>
-      </div>
-    </div>
-  </div>
-
   <!-- Progress photos -->
   <div class="section">
     <div class="section-title">Progress photos</div>
@@ -6375,7 +6340,6 @@
   wtRender();
   renderPoAll();
   renderAnatomy();
-  renderStatsAndGraph();
   renderPhotos();
   wirePhotos();
 
