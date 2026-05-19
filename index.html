@@ -2271,6 +2271,85 @@
     text-decoration: underline; padding: 6px;
   }
 
+  /* Day pill (today's split) */
+  .po-day-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 12px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 999px;
+    color: var(--text-secondary);
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.10em;
+    text-transform: uppercase;
+    cursor: pointer; margin-bottom: 16px;
+    transition: background 0.18s, border-color 0.18s, color 0.18s;
+  }
+  .po-day-pill:hover {
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(255,255,255,0.14);
+    color: var(--text-primary);
+  }
+  .po-day-date { color: var(--text-secondary); }
+  .po-day-sep { color: var(--text-tertiary); opacity: 0.5; }
+  .po-day-split { color: var(--success); font-weight: 800; }
+  .po-day-split.is-rest { color: #7DD3FC; }
+
+  /* Rotation editor */
+  .rot-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px; }
+  .rot-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto auto auto;
+    gap: 6px; align-items: center;
+    padding: 8px 10px;
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+  }
+  .rot-row.is-today {
+    background: linear-gradient(180deg, rgba(107,227,164,0.10), rgba(255,255,255,0.025));
+    border-color: rgba(107,227,164,0.30);
+  }
+  .rot-row-num {
+    font-size: 11px; color: var(--text-tertiary);
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-weight: 700; width: 18px; text-align: center;
+  }
+  .rot-row input {
+    background: transparent; border: none; outline: none;
+    color: var(--text-primary); font-family: inherit; font-size: 13px;
+    padding: 4px 0; min-width: 0;
+  }
+  .rot-mini {
+    background: transparent; border: none;
+    color: var(--text-tertiary); font-size: 14px;
+    cursor: pointer; padding: 4px 8px;
+  }
+  .rot-mini:hover { color: var(--text-primary); }
+  .rot-mini-del:hover { color: var(--danger); }
+  .rot-today-tag {
+    font-size: 8px; font-weight: 800; letter-spacing: 0.10em;
+    color: var(--success); padding: 2px 6px; border-radius: 999px;
+    background: rgba(107,227,164,0.16);
+  }
+  .rot-today-btn {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--text-tertiary); font-size: 9px; font-weight: 700;
+    letter-spacing: 0.06em; padding: 4px 8px; border-radius: 999px;
+    cursor: pointer; text-transform: uppercase;
+  }
+  .rot-today-btn:hover { color: var(--success); border-color: rgba(107,227,164,0.30); }
+  .po-add-row-btn {
+    width: 100%; margin-top: 6px;
+    padding: 10px; background: rgba(255,255,255,0.025);
+    border: 1px dashed rgba(255,255,255,0.08);
+    color: var(--text-secondary);
+    border-radius: 8px; cursor: pointer;
+    font-family: inherit; font-size: 12px;
+  }
+  .po-add-row-btn:hover { background: rgba(255,255,255,0.05); color: var(--text-primary); }
+
   /* ===== Body + Sleep shared form ===== */
   .metric-form {
     display: grid;
@@ -2812,6 +2891,12 @@
   <main id="page-gym" class="page">
 
   <h1 class="dash-title">Gym</h1>
+
+  <button class="po-day-pill" type="button" id="poDayPill" title="Tap to edit your split rotation">
+    <span class="po-day-date" id="poDayPillDate">—</span>
+    <span class="po-day-sep">·</span>
+    <span class="po-day-split" id="poDayPillSplit">—</span>
+  </button>
 
   <!-- Coach card: filters, exercise picker, log form, prescription, stats, sparkline, history -->
   <div class="section">
@@ -3396,6 +3481,22 @@
   </div>
 
   </main>
+
+  <!-- Rotation Editor Modal -->
+  <div class="po-modal-bg" id="poRotModalBg">
+    <div class="po-modal">
+      <h3>Edit split rotation</h3>
+      <p style="font-size:12px;color:var(--text-tertiary);margin:-6px 0 14px;line-height:1.45;">
+        Days cycle in this order, repeating forever. Today is whichever entry is highlighted. Use <strong>Today is →</strong> to jump the cycle to a different starting day.
+      </p>
+      <div class="rot-list" id="poRotList"></div>
+      <button class="po-add-row-btn" id="poRotAddBtn">+ Add day</button>
+      <div class="po-modal-actions">
+        <button class="po-btn-secondary" id="poRotCancel">Cancel</button>
+        <button class="po-btn-primary" id="poRotSave">Save</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Add / Edit Exercise Modal -->
   <div class="po-modal-bg" id="poExModalBg">
@@ -4448,6 +4549,16 @@
     s.filterGym = s.filterGym || s.gyms[0].id;
     s.filterDay = s.filterDay || s.splitDays[0].id;
     s.currentEx = s.currentEx || null;
+    if (!Array.isArray(s.splitRotation) || !s.splitRotation.length) {
+      s.splitRotation = ['Push', 'Pull', 'Legs', 'Rest'];
+    }
+    if (!s.splitAnchor || !s.splitAnchor.date || s.splitAnchor.index == null) {
+      s.splitAnchor = {
+        date: new Date().toISOString().slice(0, 10),
+        index: 0
+      };
+    }
+    if (typeof s._userPickedDay !== 'boolean') s._userPickedDay = false;
     return s;
   }
 
@@ -4557,7 +4668,11 @@
     });
     dSeg.querySelectorAll('.po-seg-btn').forEach(function (b) {
       b.addEventListener('click', function () {
-        gymS.filterDay = b.dataset.day; gymS.currentEx = null; gymSaveState(); renderPoAll();
+        gymS.filterDay = b.dataset.day;
+        gymS.currentEx = null;
+        gymS._userPickedDay = true;
+        gymSaveState();
+        renderPoAll();
       });
     });
   }
@@ -4931,6 +5046,151 @@
       arr.push({ weight: w, reps: reps, date: new Date().toISOString() });
       gymS.logs[ex.id] = arr;
       gymSaveState(); renderPoAll();
+    });
+  }
+
+  // ---- Day pill + split rotation editor ----
+  function todaySplit() {
+    try {
+      const rot = gymS.splitRotation;
+      if (!rot || !rot.length) return { name: '—', index: 0 };
+      const a = new Date(gymS.splitAnchor.date);
+      const t = new Date();
+      a.setHours(0,0,0,0); t.setHours(0,0,0,0);
+      const diffDays = Math.round((t - a) / 86400000);
+      const idx = ((gymS.splitAnchor.index + diffDays) % rot.length + rot.length) % rot.length;
+      return { name: rot[idx], index: idx };
+    } catch (e) {
+      return { name: '—', index: 0 };
+    }
+  }
+
+  function todayDateLabel() {
+    const d = new Date();
+    const dows = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+    const mons = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+    return dows[d.getDay()] + ', ' + mons[d.getMonth()] + ' ' + d.getDate();
+  }
+
+  function isRestName(name) { return /^rest\b/i.test(name || ''); }
+
+  function renderDayPill() {
+    const dateEl = document.getElementById('poDayPillDate');
+    const splitEl = document.getElementById('poDayPillSplit');
+    if (!dateEl) return;
+    const split = todaySplit();
+    dateEl.textContent = todayDateLabel();
+    splitEl.textContent = isRestName(split.name) ? 'REST DAY' : (split.name + ' DAY').toUpperCase();
+    splitEl.classList.toggle('is-rest', isRestName(split.name));
+  }
+
+  function autoSelectTodaySplit() {
+    if (gymS._userPickedDay) return;
+    const s = todaySplit();
+    if (!s.name || isRestName(s.name)) return;
+    const match = gymS.splitDays.find(function (d) { return d.name.toLowerCase() === s.name.toLowerCase(); });
+    if (match && match.id !== gymS.filterDay) {
+      gymS.filterDay = match.id;
+      gymS.currentEx = null;
+      gymSaveState();
+    }
+  }
+
+  let rotDraft = null;
+  let rotDraftTodayIdx = 0;
+
+  function openRotationModal() {
+    rotDraft = (gymS.splitRotation || []).slice();
+    if (!rotDraft.length) rotDraft = ['Push', 'Pull', 'Legs', 'Rest'];
+    rotDraftTodayIdx = todaySplit().index;
+    if (rotDraftTodayIdx >= rotDraft.length) rotDraftTodayIdx = 0;
+    renderRotList();
+    document.getElementById('poRotModalBg').classList.add('is-show');
+  }
+
+  function renderRotList() {
+    const list = document.getElementById('poRotList');
+    list.innerHTML = rotDraft.map(function (name, i) {
+      const isToday = (i === rotDraftTodayIdx);
+      return '<div class="rot-row ' + (isToday ? 'is-today' : '') + '" data-i="' + i + '">'
+        + '<span class="rot-row-num">' + (i + 1) + '</span>'
+        + '<input type="text" value="' + gymEsc(name) + '" placeholder="e.g. Arms" maxlength="30">'
+        + (isToday
+            ? '<span class="rot-today-tag">TODAY</span>'
+            : '<button type="button" class="rot-today-btn" data-action="today">Today is →</button>')
+        + '<button type="button" class="rot-mini" data-action="up"   aria-label="Move up">↑</button>'
+        + '<button type="button" class="rot-mini" data-action="down" aria-label="Move down">↓</button>'
+        + '<button type="button" class="rot-mini rot-mini-del" data-action="del" aria-label="Delete">×</button>'
+        + '</div>';
+    }).join('');
+    list.querySelectorAll('.rot-row').forEach(function (row) {
+      const i = parseInt(row.dataset.i, 10);
+      row.querySelector('input').addEventListener('input', function (e) { rotDraft[i] = e.target.value; });
+      const upBtn = row.querySelector('[data-action="up"]');
+      const dnBtn = row.querySelector('[data-action="down"]');
+      const delBtn = row.querySelector('[data-action="del"]');
+      const todayBtn = row.querySelector('[data-action="today"]');
+      if (upBtn) upBtn.addEventListener('click', function () {
+        if (i === 0) return;
+        const tmp = rotDraft[i-1]; rotDraft[i-1] = rotDraft[i]; rotDraft[i] = tmp;
+        if (rotDraftTodayIdx === i) rotDraftTodayIdx = i - 1;
+        else if (rotDraftTodayIdx === i - 1) rotDraftTodayIdx = i;
+        renderRotList();
+      });
+      if (dnBtn) dnBtn.addEventListener('click', function () {
+        if (i >= rotDraft.length - 1) return;
+        const tmp = rotDraft[i+1]; rotDraft[i+1] = rotDraft[i]; rotDraft[i] = tmp;
+        if (rotDraftTodayIdx === i) rotDraftTodayIdx = i + 1;
+        else if (rotDraftTodayIdx === i + 1) rotDraftTodayIdx = i;
+        renderRotList();
+      });
+      if (delBtn) delBtn.addEventListener('click', function () {
+        if (rotDraft.length <= 1) { alert('Need at least one day in the cycle.'); return; }
+        rotDraft.splice(i, 1);
+        if (rotDraftTodayIdx >= rotDraft.length) rotDraftTodayIdx = rotDraft.length - 1;
+        else if (i < rotDraftTodayIdx) rotDraftTodayIdx--;
+        renderRotList();
+      });
+      if (todayBtn) todayBtn.addEventListener('click', function () {
+        rotDraftTodayIdx = i;
+        renderRotList();
+      });
+    });
+  }
+
+  function poWireRotation() {
+    const pill = document.getElementById('poDayPill');
+    if (pill) pill.addEventListener('click', openRotationModal);
+    document.getElementById('poRotAddBtn').addEventListener('click', function () {
+      rotDraft.push('New day');
+      renderRotList();
+      setTimeout(function () {
+        const inputs = document.getElementById('poRotList').querySelectorAll('input');
+        const last = inputs[inputs.length - 1];
+        if (last) { last.focus(); last.select(); }
+      }, 30);
+    });
+    document.getElementById('poRotCancel').addEventListener('click', function () {
+      document.getElementById('poRotModalBg').classList.remove('is-show');
+      rotDraft = null;
+    });
+    document.getElementById('poRotSave').addEventListener('click', function () {
+      const cleaned = rotDraft.map(function (s) { return (s || '').trim(); }).filter(Boolean);
+      if (!cleaned.length) { alert('Need at least one day in the cycle.'); return; }
+      let newTodayIdx = rotDraftTodayIdx;
+      if (newTodayIdx >= cleaned.length) newTodayIdx = 0;
+      gymS.splitRotation = cleaned;
+      gymS.splitAnchor = {
+        date: new Date().toISOString().slice(0, 10),
+        index: newTodayIdx
+      };
+      gymS._userPickedDay = false;
+      autoSelectTodaySplit();
+      gymSaveState();
+      document.getElementById('poRotModalBg').classList.remove('is-show');
+      rotDraft = null;
+      renderDayPill();
+      renderPoAll();
     });
   }
 
@@ -5587,6 +5847,9 @@
 
   // ---- Gym v2 boot ----
   poWireGym();
+  poWireRotation();
+  autoSelectTodaySplit();
+  renderDayPill();
   renderPoAll();
   renderAnatomy();
   renderStatsAndGraph();
